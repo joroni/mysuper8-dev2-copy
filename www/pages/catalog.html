@@ -3,7 +3,7 @@
     <div class="navbar">
       <div class="navbar-inner sliding">
         <div class="left">
-          <a href="#" class="link back">
+          <a href="#" onclick="CategorizeReset(selectedCat);" class="link back reset-cache">
             <i class="icon icon-back"></i>
             <span class="ios-only">Back</span>
           </a>
@@ -11,7 +11,8 @@
         <div class="title">Catalog</div>
       </div>
     </div>
-    <div class="page-content">
+    <div class="page-content ">  
+        
       <div class="list list-block media-list">
         <ul>
           {{#each products}}
@@ -49,15 +50,18 @@
   </div>
 </template>
 <script>
-   Categorize(selectedCat);
+   
+ 
+  // Categorize(localStorage.getItem('clicked'));
   return {
-    data: function () {
-    //  thisCat = selectedCat;
+    data: function (e) {
+
+     thisCat =  localStorage.getItem('clicked');
       return {
         //products: this.$root.products,
         products:_.filter(this.$root.products, function(item, index) {
-         
-        return _.contains([selectedCat], item.cat);
+         console.log('----')
+        return _.contains([localStorage.getItem('clicked')], item.cat);
         })
       };
     }

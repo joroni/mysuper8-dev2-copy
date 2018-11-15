@@ -148,7 +148,11 @@ var app = new Framework7({
     id: 'io.super8.super8app',
     name: 'Super8',
     theme: 'auto',
-    pushState: true,
+    pushState: false,
+    cache: false,
+    cacheDuration: 0, 
+    material: true,
+    reloadAll: true,
     data: function () {
         return {
             user: {
@@ -330,22 +334,45 @@ $$('#my-login-screen .login-button')
 $$('a.getsku')
     .on('click', function () {
         sessionStorage.setItem("skuItem", ThisSKU);
-        app.dialog.alert(selectedCat);
+      //  app.dialog.alert(selectedCat);
     });
 
-$$(document)
-    .on('page:init', '.page[data-name="catalog"]', function (e) {
-        app.preloader.show();
-        setTimeout(function (selectedCat) {
-            selectedCat = localStorage.getItem("category");
+
+    
+$$(document).on('page:init', '.page[data-name="catalogb"]', function (e,page) {
+        
+       setTimeout(function (e) {
+       // page.path('/catalog/');
+       
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
+            //app.preloader.hide();
+        }, 1000);
+    })
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e,page) {
+        
+    console.log(page);
+        
+      //  Categorize(selectedCat);
+     /* page.router.navigate(page.router.currentRoute.url,{
+        ignoreCache:true,
+        reloadCurrent:true
+    })*/
+  
+        //app.preloader.show();
+      setTimeout(function (e) {
+       // page.path('/catalog/');
+       // app.router.navigate('/catalogb/');
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
             app.preloader.hide();
-        }, 2000);
+        }, 1000);
 
 
 
 
        // setTimeout(function () {}, 800);
-        console.log("Catalog");
+       // console.log("Catalog");
         app.addToMyCart = function (id) {
             if (!localStorage.getItem("idMember")) {
                 app.dialog.alert("Please select a customer.");
@@ -446,15 +473,7 @@ $$(document)
             app.updatePayForm();
         }
     });
-$$(document)
-    .on('page:init', '.page[data-name="catalogc"]', function (e) {
-        app.purchaseOrders();
-        $$('.item-link').on('click', function () {
-            var codeID = $$(this).attr("data-code");
-            app.thisItem(codeID);
 
-        })
-    });
 
 app.thisItem = function (codeID) {
     var purchase_orders = JSON.parse(localStorage.getItem("txtClients"));
@@ -643,8 +662,8 @@ $$(document)
     .on('page:init', '.page[data-name="homes"]', function (e) {
 
     });
-$$(document)
-    .on('page:init', '.page[data-name="catalog"]', function (e) {
+    /*
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.createProducts();
       //  app.loadStore();
         app.preloader.show();
@@ -652,7 +671,7 @@ $$(document)
        /* setTimeout(function () {
             app.preloader.hide();
             app.loadStore();
-        }, 800);*/
+        }, 800);*
         console.log("Catalog");
         app.addToMyCart = function (id) {
             if (!localStorage.getItem("idMember")) {
@@ -763,26 +782,46 @@ $$(document)
             app.getProducts();
             app.updatePayForm();
         }
-    });
+    });*/
+
+
+    var selectedCat = "";
+    function Categorize(selectedCat){
+    console.log(selectedCat);
+    thisCat = "";
+    }
+
+
+   
+    function CategorizeReset(selectedCat){
+       
+      /*  selectedCat = "";
+    console.log(selectedCat);
+    thisCat = selectedCat;*/
+    }
+
+
+
+
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
    // console.log('Category');
+  
    
-
     $$('#categories .category').on('click', function () {
-        selectedCat = $$(this).attr("alt");
-        Categorize(selectedCat);
+        //selectedCat;
+        //selectedCat = $$(this).attr("alt");
+        localStorage.setItem('clicked',$$(this).attr("alt"));
+        app.router.navigate('/catalog/'+$$(this).attr("alt")+'/');
+       // Categorize(selectedCat);
         
     });
 
 });
 
 
-var selectedCat;
-function Categorize(selectedCat){
-  console.log(selectedCat);
-  thisCat = selectedCat;
-}
+
+
 
 
 //app.loadStore = function () {}

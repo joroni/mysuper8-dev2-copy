@@ -148,7 +148,11 @@ var app = new Framework7({
     id: 'io.super8.super8app',
     name: 'Super8',
     theme: 'auto',
-    pushState: true,
+    pushState: false,
+    cache: false,
+    cacheDuration: 0, 
+    material: true,
+    reloadAll: true,
     data: function () {
         return {
             user: {
@@ -330,14 +334,18 @@ $$('#my-login-screen .login-button')
 $$('a.getsku')
     .on('click', function () {
         sessionStorage.setItem("skuItem", ThisSKU);
-        app.dialog.alert(selectedCat);
+      //  app.dialog.alert(selectedCat);
     });
 
 $$(document)
     .on('page:init', '.page[data-name="catalog"]', function (e) {
+      //  Categorize(selectedCat);
+      $$('.view-main .page-previous').remove();
+      console.log('a');
         app.preloader.show();
-        setTimeout(function (selectedCat) {
-            selectedCat = localStorage.getItem("category");
+      setTimeout(function (e) {
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
             app.preloader.hide();
         }, 2000);
 
@@ -345,7 +353,7 @@ $$(document)
 
 
        // setTimeout(function () {}, 800);
-        console.log("Catalog");
+       // console.log("Catalog");
         app.addToMyCart = function (id) {
             if (!localStorage.getItem("idMember")) {
                 app.dialog.alert("Please select a customer.");
@@ -765,11 +773,28 @@ $$(document)
         }
     });
 
+
+    var selectedCat = "";
+    function Categorize(selectedCat){
+    console.log(selectedCat);
+    thisCat = "";
+    }
+
+
+   
+    function CategorizeReset(selectedCat){
+        selectedCat = "";
+    console.log(selectedCat);
+    thisCat = selectedCat;
+    }
+
+
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
    // console.log('Category');
    
-
+   
     $$('#categories .category').on('click', function () {
+        selectedCat;
         selectedCat = $$(this).attr("alt");
         Categorize(selectedCat);
         
@@ -778,11 +803,6 @@ $$(document).on('page:init', '.page[data-name="category"]', function (e) {
 });
 
 
-var selectedCat;
-function Categorize(selectedCat){
-  console.log(selectedCat);
-  thisCat = selectedCat;
-}
 
 
 //app.loadStore = function () {}
