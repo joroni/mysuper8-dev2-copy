@@ -2,16 +2,20 @@
   <div class="page" data-name="category">
     <div class="navbar">
       <div class="navbar-inner sliding">
-        <div class="title">Categories</div>
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
+        <div class="title">Category</div>
       </div>
     </div>
     <div class="page-content">
-     
-
       <div class="list links-list">
           <ul id="categories">
             {{#each products}}
-                <li><a class="category" data-cattrim="{{cattrim}}" href="/catalog/{{cat}}/">{{cat}}</a></li>
+                <li><a class="category" alt="{{cat}}" href="/catalog/{{cat}}/">{{cat}}</a></li>
             {{/each}}
           </ul>
         </div>

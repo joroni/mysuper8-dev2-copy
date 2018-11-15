@@ -1,15 +1,13 @@
-// Dom7
 var $$ = Dom7;
 
-// Framework7 App main instance
-//var orderItems = JSON.parse(localStorage.getItem("txtClients"));
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-var dynamicproducts = [{
+/*var dynamicproducts = [{
     id: 1,
     sku: 'A0000001',
     name: 'Denim Shirt',
     cat: 'Sports Wear',
+    cattrim: 'Sports-Wear',
     state: 'New',
     statecolor: 'red',
     size: '',
@@ -27,12 +25,12 @@ var dynamicproducts = [{
     timestamp: '',
     ponumber: '',
     total: ''
-},
-{
+}, {
     id: 2,
     sku: 'A0000002',
     name: 'Drypers Mega Pack',
     cat: 'Baby',
+    cattrim: 'Baby',
     state: 'Sale',
     statecolor: 'green',
     size: 'Large x 62 pcs',
@@ -50,12 +48,12 @@ var dynamicproducts = [{
     timestamp: '',
     ponumber: '',
     total: ''
-},
-{
+}, {
     id: 3,
     sku: 'A0000003',
     name: 'Cool Shirt',
     cat: 'Out Wear',
+    cattrim: 'Out-Wear',
     state: '',
     statecolor: '',
     size: '',
@@ -73,12 +71,12 @@ var dynamicproducts = [{
     timestamp: '',
     ponumber: '',
     total: ''
-},
-{
+}, {
     id: 4,
     sku: 'A0000004',
     name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
     cat: 'Coffee',
+    cattrim: 'Coffee',
     state: '',
     statecolor: '',
     size: '3 pcs x 180 ml',
@@ -96,12 +94,12 @@ var dynamicproducts = [{
     timestamp: '',
     ponumber: '',
     total: ''
-},
-{
+}, {
     id: 5,
     sku: 'A0000005',
     name: 'Gingen Strong Ginger Formula Tea',
     cat: 'Tea',
+    cattrim: 'Tea',
     state: 'Best Seller',
     size: '',
     statecolor: 'blue',
@@ -119,12 +117,12 @@ var dynamicproducts = [{
     timestamp: '',
     ponumber: '',
     total: ''
-},
-{
+}, {
     id: 6,
     sku: 'A0000006',
     name: 'Cool Shirt',
     cat: 'Out Wear',
+    cattrim: 'Out-Wear',
     state: '',
     statecolor: '',
     size: '3 pcs x 180 ml',
@@ -144,12 +142,12 @@ var dynamicproducts = [{
     total: ''
 }];
 localStorage.setItem("products", JSON.stringify(dynamicproducts));
-var products = localStorage.getItem("products");
+var products = localStorage.getItem("products");*/
 var app = new Framework7({
-    root: '#app', // App root element
-    id: 'io.super8.super8app', // App bundle ID
-    name: 'Super8', // App name
-    theme: 'auto', // Automatic theme detection
+    root: '#app',
+    id: 'io.super8.super8app',
+    name: 'Super8',
+    theme: 'auto',
     pushState: true,
     data: function () {
         return {
@@ -157,327 +155,205 @@ var app = new Framework7({
                 firstName: 'John',
                 lastName: 'Doe',
             },
-            // productbs: JSON.parse(customers),
-            // productbs: [{"id":1,"cid":1540562584936,"title":"John","fname":"Doe","phone":"12345646","description":"john.doe@email.com"},{"id":2,"cid":1540818411406,"title":"Melissa","fname":"De Leon","phone":"093482940","description":"2014-04-30"},{"id":3,"cid":1540825840882,"title":"Joanne","fname":"Amparo","phone":"123456789","description":"2014-04-08"},{"id":4,"cid":1540918462991,"title":"JKJk","fname":"weieoidfp","phone":"12459","description":"2014-04-30"}],
-            //activepos: JSON.stringify(localStorage.getItem("POselected")),
             productcs: JSON.parse(orderItems),
-            products: JSON.stringify(products),
-            //productbs:["{\"Code\":\"1\",\"Name\":\"User\",\"Cid\":\"12345\",\"Date\":\"10-28-18\",\"Items\":\"Test\"}"],
-            //productbs: ["{\"id\":\"1\",\"cid\":\"3495894823022\",\"title\":\"Test User1\",\"Date\":\"10-20.18\",\"Items\":\"<table>   <tbody><tr>     <th>Name</th>   </tr>     </tbody><tbody id=\\\"countries\\\"><tr><td>France</td><td><button onclick=\\\"app.Edit(0)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(0)\\\">Delete</button></td></tr><tr><td>Germany</td><td><button onclick=\\\"app.Edit(1)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(1)\\\">Delete</button></td></tr><tr><td>England</td><td><button onclick=\\\"app.Edit(2)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(2)\\\">Delete</button></td></tr><tr><td>Spain</td><td><button onclick=\\\"app.Edit(3)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(3)\\\">Delete</button></td></tr><tr><td>Belgium</td><td><button onclick=\\\"app.Edit(4)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(4)\\\">Delete</button></td></tr><tr><td>Italy</td><td><button onclick=\\\"app.Edit(5)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(5)\\\">Delete</button></td></tr><tr><td>Portugal</td><td><button onclick=\\\"app.Edit(6)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(6)\\\">Delete</button></td></tr><tr><td>Irland</td><td><button onclick=\\\"app.Edit(7)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(7)\\\">Delete</button></td></tr><tr><td>Luxembourg</td><td><button onclick=\\\"app.Edit(8)\\\">Edit</button></td><td><button onclick=\\\"app.Delete(8)\\\">Delete</button></td></tr></tbody> </table>\"}"],
-            // productbs: [customers],
-            /*items: [{
-                    id: '1',
-                    title: 'John',
-                    fname: 'Dough',
-                    phone: '0995475142',
-                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
-                    birth_month: '11',
-                    birth_day: '12',
-                    birth_yr: '1982',
-                    add_street: 'Taylo Street',
-                    add_unit: 'Unit 1 Dough Apartments',
-                    add_city: 'Quezon City',
-                    add_area: 'Brgy. Gumamela',
-                    add_zip: '1068',
-                    add_landmark: 'Near EastWest',
-                    timestamp: '150495687901'
-                },
-                {
-                    id: '2',
-                    title: 'Anne',
-                    fname: 'Hattaway',
-                    phone: '0995475142',
-                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
-                    birth_month: '12',
-                    birth_day: '20',
-                    birth_yr: '1978',
-                    add_street: 'Melon Street',
-                    add_unit: 'The Heights Subd',
-                    add_city: 'Quezon City',
-                    add_area: 'Brgy. 6',
-                    add_zip: '1223',
-                    add_landmark: 'Near EastWest',
-                    timestamp: '150495687978'
-                },
-                {
-                    id: '3',
-                    title: 'Rafael',
-                    fname: 'Domingo',
-                    phone: '0995475143',
-                    desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi tempora similique reiciendis, error nesciunt vero, blanditiis pariatur dolor, minima sed sapiente rerum, dolorem corrupti hic modi praesentium unde saepe perspiciatis.',
-                    birth_month: '12',
-                    birth_day: '20',
-                    birth_yr: '1978',
-                    add_street: 'Melon Street',
-                    add_unit: 'The Heights Subd',
-                    add_city: 'Quezon City',
-                    add_area: 'Brgy. 6',
-                    add_zip: '1223',
-                    add_landmark: 'Near EastWest',
-                    timestamp: '150495687975'
-                }
-            ],*/
-           products: [{
-                    id: '1',
-                    sku: 'A0000001',
-                    name:'Denim Shirt',
-                    cat: 'Sports Wear',
-                    cattrim: 'Sports-Wear',
-                    state: 'New',
-                    statecolor: 'red',
-                    size: '',
-                    img: 'img/products/12.jpg',
-                    oldprice: '',
-                    price: 299.00,
-                    desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 4,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                },
-                {
-                    id: '2',
-                    sku: 'A0000002',
-                    name:'Drypers Mega Pack',
-                    cat: 'Baby',
-                    cattrim: 'Baby',
-                    state: 'Sale',
-                    statecolor: 'green',
-                    size: 'Large x 62 pcs',
-                    img: 'img/products/baby.jpg',
-                    oldprice: 630.00,
-                    price: 503.00,
-                    desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 2,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                },
-                {
-                    id: '3',
-                    sku: 'A0000003',
-                    name:'Cool Shirt',
-                    cat: 'Out Wear',
-                    cattrim: 'Out-Wear',
-                    state: '',
-                    statecolor: '',
-                    size: '',
-                    img: 'img/products/14.jpg',
-                    oldprice: '',
-                    price: 99.00,
-                    desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 1,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                },
-                {
-                    id: '4',
-                    sku: 'A0000004',
-                    name:'137 Degrees Iced Coffee Latte with Almond Milk Drink',
-                    cat: 'Coffee',
-                    cattrim: 'Coffee',
-                    state: '',
-                    statecolor: '',
-                    size: '3 pcs x 180 ml',
-                    img: 'img/products/coffee.jpg',
-                    oldprice: '',
-                    price: 80.00,
-                    desc: 'Perfect iced coffee latte with almond milk',
-                    stock: 50,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                },
-                {
-                    id: '5',
-                    sku: 'A0000005',
-                    name:'Gingen Strong Ginger Formula Tea',
-                    cat: 'Tea',
-                    cattrim: 'Tea',
-                    state: 'Best Seller',
-                    size: '',
-                    statecolor: 'blue',
-                    img: 'img/products/tea.jpg',
-                    oldprice: '',
-                    price: 440.00,
-                    desc: 'Hot drink with slightly sweet and strong taste from aged quality ginger',
-                    stock: 20,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                },
-                {
-                    id: '6',
-                    sku: 'A0000006',
-                    name:'Cool Shirt',
-                    cat: 'Out Wear',
-                    cattrim: 'Out-Wear',
-                    state: '',
-                    statecolor: '',
-                    size: '3 pcs x 180 ml',
-                    img: 'img/products/15.jpg',
-                    oldprice: '',
-                    price: 80.00,
-                    desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                    stock: 8,
-                    cname: '',
-                    check: '',
-                    select: '',
-                    notes: '',
-                    email: '',
-                    smname: '',
-                    timestamp: '',
-                    ponumber: '',
-                    total: ''
-                }
-            ]
+            //products: JSON.stringify(products),
+            products: [{
+                id: '1',
+                sku: 'A0000001',
+                name: 'Denim Shirt',
+                cat: 'Sports Wear',
+                
+                state: 'New',
+                statecolor: 'red',
+                size: '',
+                img: 'img/products/12.jpg',
+                oldprice: '',
+                price: 299.00,
+                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+                stock: 4,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }, {
+                id: '2',
+                sku: 'A0000002',
+                name: 'Drypers Mega Pack',
+                cat: 'Baby',
+                
+                state: 'Sale',
+                statecolor: 'green',
+                size: 'Large x 62 pcs',
+                img: 'img/products/baby.jpg',
+                oldprice: 630.00,
+                price: 503.00,
+                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+                stock: 2,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }, {
+                id: '3',
+                sku: 'A0000003',
+                name: 'Cool Shirt',
+                cat: 'Out Wear',
+               
+                state: '',
+                statecolor: '',
+                size: '',
+                img: 'img/products/14.jpg',
+                oldprice: '',
+                price: 99.00,
+                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+                stock: 1,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }, {
+                id: '4',
+                sku: 'A0000004',
+                name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
+                cat: 'Coffee',
+               
+                state: '',
+                statecolor: '',
+                size: '3 pcs x 180 ml',
+                img: 'img/products/coffee.jpg',
+                oldprice: '',
+                price: 80.00,
+                desc: 'Perfect iced coffee latte with almond milk',
+                stock: 50,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }, {
+                id: '5',
+                sku: 'A0000005',
+                name: 'Gingen Strong Ginger Formula Tea',
+                cat: 'Tea',
+               
+                state: 'Best Seller',
+                size: '',
+                statecolor: 'blue',
+                img: 'img/products/tea.jpg',
+                oldprice: '',
+                price: 440.00,
+                desc: 'Hot drink with slightly sweet and strong taste from aged quality ginger',
+                stock: 20,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }, {
+                id: '6',
+                sku: 'A0000006',
+                name: 'Cool Shirt',
+                cat: 'Out Wear',
+               
+                state: '',
+                statecolor: '',
+                size: '3 pcs x 180 ml',
+                img: 'img/products/15.jpg',
+                oldprice: '',
+                price: 80.00,
+                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+                stock: 8,
+                cname: '',
+                check: '',
+                select: '',
+                notes: '',
+                email: '',
+                smname: '',
+                timestamp: '',
+                ponumber: '',
+                total: ''
+            }]
         };
     },
-    // App root methods
     methods: {
         helloWorld: function () {
             app.dialog.alert('Hello World!');
         },
     },
-    // App routes
     routes: routes,
 });
 
 
 
-// Init/Create main view
 var mainView = app.views.create('.view-main', {
     url: '/'
 });
 
-// Init/Create views
-/*var homeView = app.views.create('#view-home', {
-    url: '/'
-});*/
 var settingsView = app.views.create('#view-settings', {
     url: '/settings/'
 });
 var customersView = app.views.create('#view-catalog', {
     url: '/catalog/'
 });
-/*
-var ordersView = app.views.create('#view-catalogd', {
-    url: '/catalogd/'
-});*/
-// Login Screen Demo
 $$('#my-login-screen .login-button')
     .on('click', function () {
         var username = $$('#my-login-screen [name="username"]')
             .val();
         var password = $$('#my-login-screen [name="password"]')
             .val();
-        // Close login screen
         app.loginScreen.close('#my-login-screen');
-        // Alert username and password
         app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
     });
-/*app.getSKU = function(ThisSKU){
-    sessionStorage.setItem("skuItem", ThisSKU);
-}
-*/
-//var ThisSKU = $$(this).attr("data-sku");
 $$('a.getsku')
     .on('click', function () {
         sessionStorage.setItem("skuItem", ThisSKU);
         app.dialog.alert(selectedCat);
     });
-/*$$('a.category').on('click', function () {
-        var selectedCat = $$(this).html();
-        // Alert username and password
-        app.dialog.alert(selectedCat);
-    });*/
 
-/****************************************** */
 $$(document)
     .on('page:init', '.page[data-name="catalog"]', function (e) {
         app.preloader.show();
-        setTimeout(function () {
-        var selectedCat = localStorage.getItem("category");
-       
-        
-          //  $$("."+selectedCat).removeClass("hidden");
+        setTimeout(function (selectedCat) {
+            selectedCat = localStorage.getItem("category");
             app.preloader.hide();
-         }, 1000);
-      
-       
-       
-    
-       // app.preloader.show();
-       /* if (mylist == selectedCat){
-            setTimeout(function () {
-                 app.preloader.hide();
-                 mylist.addClass("show");
-              }, 800);
-           
-        }*/
-        //var selItem = $(this).filter('[data-cat="'+selectedCat+'"]');
-        //selItem.show();
-      
-        
-        //  app.createProducts();
-      //  app.loadStore(); // Show preloader before Ajax request
-        //  app.preloader.show();
-        // Perform Ajax request
-        /* app.request.get('someurl.html', function (data) {
-           // Hide preloader when Ajax request completed
-           app.preloader.hide();
-         });*/
-       // app.preloader.show();
-        setTimeout(function () {
-          //  app.preloader.hide();
-       //     app.loadStore();
-        }, 800);
+        }, 2000);
+
+
+
+
+       // setTimeout(function () {}, 800);
         console.log("Catalog");
         app.addToMyCart = function (id) {
-            // alert("test");
-            //function checkHasUer(){
             if (!localStorage.getItem("idMember")) {
                 app.dialog.alert("Please select a customer.");
                 app.router.navigate('/catalogb/');
                 return false;
             } else {
                 console.log("continue shopping");
-                //
-                //console.log("add to cart");
-                // var l = Ladda.create(document.querySelector('.prod-' + id));
                 var l = $$('.prod-' + id);
-                // l.start();
                 var products = JSON.parse(localStorage.getItem('products')),
                     producto = _.find(products, {
                         'id': id
@@ -503,17 +379,14 @@ $$(document)
                                     producto.oldprice,
                                     producto.notes,
                                     producto.cname,
-                                    // producto.cname = localStorage.getItem("idMember"),
                                     producto.check = "notsync",
                                     producto.select,
                                     producto.email,
-                                    // producto.smname = localStorage.getItem("idSalesMngr"),
                                     producto.smname,
                                     producto.timestamp,
                                     producto.ponumber,
                                     producto.total = localStorage.getItem("grndTotal")
                                 )
-                                // l.stop();
                                 console.log(parseInt(cant))
                                 $$('body')
                                     .css('opacity', '1');
@@ -530,13 +403,11 @@ $$(document)
             }
         }
         app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-            //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
             var curProd = _.find(cart.items, {
                 'id': id
             })
             console.log("search products");
             if (undefined != curProd && curProd != null) {
-                //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
                 if (curProd.cant < available) {
                     curProd.cant = parseInt(curProd.cant + cant);
                 } else {
@@ -545,7 +416,6 @@ $$(document)
                 $$('#prod_' + curProd.id)
                     .val(curProd.cant);
             } else {
-                //sino existe lo agregamos al carrito
                 var timeandponumber = new Date()
                     .getTime();
                 localStorage.setItem("timeandponumber", timeandponumber);
@@ -585,25 +455,16 @@ $$(document)
 
         })
     });
-$$(document)
-    .on('DOMContentLoaded', function () {
-        app.purchaseOrders();
-        
-
-    });
-
 
 app.thisItem = function (codeID) {
-    // var purchase_orders = [{"code":"1541745596212","name":"Jane Doe","date":"Fri Nov 09 2018 14:40:03 GMT+0800 (Philippine Standard Time)-1:36","items":"<tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000001\">Denim Shirt</h3></td><td colspan=\"2\"><p class=\"right\"><del></del></p><p class=\"price right\">₱299.00</p></td></tr><tr class=\"total-row\"><td colspan=\"2\"> </td><td id=\"total\" class=\"total right\" colspan=\"3\">₱299.00 </td></tr>","notes":"Processing"},{"code":"1541745657473","name":"Jane Doe","date":"Fri Nov 09 2018 14:41:02 GMT+0800 (Philippine Standard Time)-18:37","items":"<tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000002\">Drypers Mega Pack</h3></td><td colspan=\"2\"><p class=\"right\"><del>₱630.00</del></p><p class=\"price right\">₱503.00</p></td></tr><tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000003\">Cool Shirt</h3></td><td colspan=\"2\"><p class=\"right\"><del></del></p><p class=\"price right\">₱99.00</p></td></tr><tr class=\"total-row\"><td colspan=\"2\"> </td><td id=\"total\" class=\"total right\" colspan=\"3\">₱602.00 </td></tr>","notes":"Processing"}];
     var purchase_orders = JSON.parse(localStorage.getItem("txtClients"));
 
     var evens = _.filter(purchase_orders, function (obj) {
         return ~obj.code.toLowerCase().indexOf(codeID);
     });
     localStorage.setItem("POselected", JSON.stringify(evens));
-    // alert(JSON.stringify(evens));   
     var newdata = evens;
-   
+
     $.each(newdata, function (i, v) {
         var shortdate = v.date.substr(0, v.date.lastIndexOf(" GMT") + 1);
         $('#thisPOdata').html('<div class="block"><ul>' +
@@ -622,27 +483,18 @@ $$(document).on('page:init', '.page[data-name="activepo"]', function (e) {
 
     alert('activepo');
 });
-//alert("catalogc");
 app.purchaseOrders = function () {
 
-    var operation = "A"; //"A"=Adição; "E"=Edição
-    var index_selected = -1; //Índice do item selecionado na lista
-    var txtClients = localStorage.getItem("txtClients"); // Recupera os dados armazenados
-    txtClients = JSON.parse(txtClients); // Converte string para objeto
+    var operation = "A";
+    var index_selected = -1;
+    var txtClients = localStorage.getItem("txtClients");
+    txtClients = JSON.parse(txtClients);
 
-    if (txtClients == null) { // Caso não haja conteúdo, iniciamos um vetor vazio
+    if (txtClients == null) {
         txtClients = [];
     }
 
 
-    /*$$("#frmCadastro").on("submit", function () {
-        if (operation == "A") {
-            return Adicionar(txtClients);
-        } else {
-            return EditItem(txtClients, index_selected);
-        }
-    });
-    */
 
     $$("#frmCadastro").on("click", ".btn-submit-po", function () {
         if (operation == "A") {
@@ -700,7 +552,6 @@ app.purchaseOrders = function () {
         var timepo = localStorage.getItem("timeandponumber");
         $$("#servingpo")
             .html(timepo);
-        // app.dialog.alert(timepo + ' ' + activeCustomer);
 
 
     }
@@ -708,7 +559,6 @@ app.purchaseOrders = function () {
 
 
     function Adicionar(txtClients) {
-        // CustomerCartInfo();
         var client = {
             code: $$("#txtCode")
                 .val(),
@@ -722,7 +572,6 @@ app.purchaseOrders = function () {
                 .val(),
             notes: $$("#txtNotes").val()
         };
-        //  CustomerCartInfo();
         txtClients.push(client);
         console.log("txtClients - " + txtClients);
         localStorage.setItem("txtClients", JSON.stringify(txtClients));
@@ -734,8 +583,6 @@ app.purchaseOrders = function () {
         $$('.popup-backdrop').removeClass('backdrop-in');
 
         app.router.navigate('/catalogc/');
-        //    view1.router.refreshPage(); 
-        // view1.router.loadPage({ url: '/pages/catalogc.html', reload: true });
         app.resetPOCart();
         return true;
     }
@@ -755,10 +602,10 @@ app.purchaseOrders = function () {
                 .val(),
             notes: $$("#txtNotes")
                 .val()
-        }); //Altera o item selecionado na tabela
+        });
         localStorage.setItem("txtClients", JSON.stringify(txtClients));
         app.dialog.alert("Updated Successfully.")
-        operation = "A"; //Volta ao padrão
+        operation = "A";
         return true;
     }
 
@@ -773,16 +620,12 @@ app.purchaseOrders = function () {
         $$("#tblList")
             .html("");
         for (var i in txtClients) {
-            // var cli = JSON.parse(txtClients[i]);
             var cli = txtClients[i];
-            // the original string
             var olddate = cli.date;
-            // remove everything after the last backslash
             var shortdate = olddate.substr(0, olddate.lastIndexOf(" GMT") + 1);
             $$("#tblList")
-                .append('<li id="'+i+'">' +
+                .append('<li id="' + i + '">' +
                     '<a href="#" class="item-link item-content popup-open"  data-popup="#activepo" data-code="' + cli.code + '" alt="">' +
-                    // '<div class="item-media"><i class="icon icon-f7"></i></div>' +
                     '<div class="item-inner">' +
                     '<div class="item-title">' + cli.name + '<p><small>' + shortdate + '</small></p></div>' +
                     '<div class="item-after"><span class="badge">' + cli.notes + '</span></div>' +
@@ -790,52 +633,36 @@ app.purchaseOrders = function () {
                     '</a>' +
                     '</li>'
                 );
-
-
-
-
         }
     }
 }
-//});
 
 
 
 $$(document)
     .on('page:init', '.page[data-name="homes"]', function (e) {
-       // app.loadStore();
 
     });
 $$(document)
     .on('page:init', '.page[data-name="catalog"]', function (e) {
-         app.createProducts();
-        app.loadStore(); // Show preloader before Ajax request
-         app.preloader.show();
-        // Perform Ajax request
-        // app.request.get('someurl.html', function (data) {
-           // Hide preloader when Ajax request completed
-         //  app.preloader.hide();
-       //  });
+        app.createProducts();
+      //  app.loadStore();
         app.preloader.show();
-        setTimeout(function () {
+        app.preloader.show();
+       /* setTimeout(function () {
             app.preloader.hide();
             app.loadStore();
-        }, 800);
+        }, 800);*/
         console.log("Catalog");
         app.addToMyCart = function (id) {
-            // alert("test");
-            //function checkHasUer(){
             if (!localStorage.getItem("idMember")) {
                 app.dialog.alert("Please select a customer.");
                 app.router.navigate('/catalogb/');
                 return false;
             } else {
                 console.log("continue shopping");
-                //
                 console.log("add to cart");
-                // var l = Ladda.create(document.querySelector('.prod-' + id));
                 var l = $$('.prod-' + id);
-                // l.start();
                 var products = JSON.parse(localStorage.getItem('products')),
                     producto = _.find(products, {
                         'id': id
@@ -861,17 +688,14 @@ $$(document)
                                     producto.oldprice,
                                     producto.notes,
                                     producto.cname,
-                                    // producto.cname = localStorage.getItem("idMember"),
                                     producto.check = "notsync",
                                     producto.select,
                                     producto.email,
-                                    // producto.smname = localStorage.getItem("idSalesMngr"),
                                     producto.smname,
                                     producto.timestamp,
                                     producto.ponumber,
                                     producto.total = localStorage.getItem("grndTotal")
                                 )
-                                // l.stop();
                                 console.log(parseInt(cant))
                                 $$('body')
                                     .css('opacity', '1');
@@ -890,13 +714,11 @@ $$(document)
 
 
         app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-            //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
             var curProd = _.find(cart.items, {
                 'id': id
             })
             console.log("search products");
             if (undefined != curProd && curProd != null) {
-                //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
                 if (curProd.cant < available) {
                     curProd.cant = parseInt(curProd.cant + cant)
                 } else {
@@ -905,7 +727,6 @@ $$(document)
                 $$('#prod_' + curProd.id)
                     .val(curProd.cant);
             } else {
-                //sino existe lo agregamos al carrito
                 var timeandponumber = new Date()
                     .getTime();
                 localStorage.setItem("timeandponumber", timeandponumber);
@@ -945,27 +766,34 @@ $$(document)
     });
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
-    console.log('Category');
-      
-       $$('#categories .category').on('click', function () {
-            var selectedCat = $$(this).attr("data-cattrim");
-           console.log(selectedCat);
-            localStorage.setItem("category", selectedCat);
-        });
-       
+   // console.log('Category');
+   
+
+    $$('#categories .category').on('click', function () {
+        selectedCat = $$(this).attr("alt");
+        Categorize(selectedCat);
+        
     });
-/**************************************** CART */
-app.loadStore = function () {}
-var business_paypal = '', // aquí va tu correo electrónico de paypal
+
+});
+
+
+var selectedCat;
+function Categorize(selectedCat){
+  console.log(selectedCat);
+  thisCat = selectedCat;
+}
+
+
+//app.loadStore = function () {}
+var business_paypal = '',
     currency_icon = '₱';
 mockIdSalesMngr = '1111111111111';
 localStorage.setItem("myCurrency", currency_icon);
 localStorage.setItem("idSalesMngr", mockIdSalesMngr);
 'use strict';
-//no coflict con underscores
 app.init = function () {
     console.log("initializing...");
-    //totalItems totalAmount
     var total = 0,
         items = 0
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -979,7 +807,6 @@ app.init = function () {
     }
     var total_Items = $$('#totalItems');
     total_Items.text(items);
-    //alert(items);
     if (items == 0) {
         $$(total_Items)
             .hide();
@@ -993,146 +820,144 @@ app.init = function () {
 app.createProducts = function () {
     console.log("create products");
     var products = [{
-                id: 1,
-                sku: 'A0000001',
-                name: 'Denim Shirt',
-                cat: 'Sports Wear',
-                state: 'New',
-                statecolor: 'red',
-                size: '',
-                img: 'img/products/12.jpg',
-                oldprice: '',
-                price: 299.00,
-                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                stock: 4,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            },
-            {
-                id: 2,
-                sku: 'A0000002',
-                name: 'Drypers Mega Pack',
-                cat: 'Baby',
-                state: 'Sale',
-                statecolor: 'green',
-                size: 'Large x 62 pcs',
-                img: 'img/products/baby.jpg',
-                oldprice: 630.00,
-                price: 503.00,
-                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                stock: 2,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            },
-            {
-                id: 3,
-                sku: 'A0000003',
-                name: 'Cool Shirt',
-                cat: 'Out Wear',
-                state: '',
-                statecolor: '',
-                size: '',
-                img: 'img/products/14.jpg',
-                oldprice: '',
-                price: 99.00,
-                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                stock: 1,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            },
-            {
-                id: 4,
-                sku: 'A0000004',
-                name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
-                cat: 'Coffee',
-                state: '',
-                statecolor: '',
-                size: '3 pcs x 180 ml',
-                img: 'img/products/coffee.jpg',
-                oldprice: '',
-                price: 80.00,
-                desc: 'Perfect iced coffee latte with almond milk',
-                stock: 50,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            },
-            {
-                id: 5,
-                sku: 'A0000005',
-                name: 'Gingen Strong Ginger Formula Tea',
-                cat: 'Tea',
-                state: 'Best Seller',
-                size: '',
-                statecolor: 'blue',
-                img: 'img/products/tea.jpg',
-                oldprice: '',
-                price: 440.00,
-                desc: 'Hot drink with slightly sweet and strong taste from aged quality ginger',
-                stock: 20,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            },
-            {
-                id: 6,
-                sku: 'A0000006',
-                name: 'Cool Shirt',
-                cat: 'Out Wear',
-                state: '',
-                statecolor: '',
-                size: '3 pcs x 180 ml',
-                img: 'img/products/15.jpg',
-                oldprice: '',
-                price: 80.00,
-                desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
-                stock: 8,
-                cname: '',
-                check: '',
-                select: '',
-                notes: '',
-                email: '',
-                smname: '',
-                timestamp: '',
-                ponumber: '',
-                total: ''
-            }
-        ],
-        // wrapper = $$('.productosWrapper'),
-        //      wrapper2 = $$('#stepper_prod_'+ products[i].id),
+        id: 1,
+        sku: 'A0000001',
+        name: 'Denim Shirt',
+        cat: 'Sports Wear',
+        
+        state: 'New',
+        statecolor: 'red',
+        size: '',
+        img: 'img/products/12.jpg',
+        oldprice: '',
+        price: 299.00,
+        desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+        stock: 4,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }, {
+        id: 2,
+        sku: 'A0000002',
+        name: 'Drypers Mega Pack',
+        cat: 'Baby',
+        
+        state: 'Sale',
+        statecolor: 'green',
+        size: 'Large x 62 pcs',
+        img: 'img/products/baby.jpg',
+        oldprice: 630.00,
+        price: 503.00,
+        desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+        stock: 2,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }, {
+        id: 3,
+        sku: 'A0000003',
+        name: 'Cool Shirt',
+        cat: 'Out Wear',
+      
+        state: '',
+        statecolor: '',
+        size: '',
+        img: 'img/products/14.jpg',
+        oldprice: '',
+        price: 99.00,
+        desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+        stock: 1,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }, {
+        id: 4,
+        sku: 'A0000004',
+        name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
+        cat: 'Coffee',
+      
+        state: '',
+        statecolor: '',
+        size: '3 pcs x 180 ml',
+        img: 'img/products/coffee.jpg',
+        oldprice: '',
+        price: 80.00,
+        desc: 'Perfect iced coffee latte with almond milk',
+        stock: 50,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }, {
+        id: 5,
+        sku: 'A0000005',
+        name: 'Gingen Strong Ginger Formula Tea',
+        cat: 'Tea',
+        
+        state: 'Best Seller',
+        size: '',
+        statecolor: 'blue',
+        img: 'img/products/tea.jpg',
+        oldprice: '',
+        price: 440.00,
+        desc: 'Hot drink with slightly sweet and strong taste from aged quality ginger',
+        stock: 20,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }, {
+        id: 6,
+        sku: 'A0000006',
+        name: 'Cool Shirt',
+        cat: 'Out Wear',
+        
+        state: '',
+        statecolor: '',
+        size: '3 pcs x 180 ml',
+        img: 'img/products/15.jpg',
+        oldprice: '',
+        price: 80.00,
+        desc: 'Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time 5-7 business days via UPS express with tracking and insurance. Payments only via Paypal.',
+        stock: 8,
+        cname: '',
+        check: '',
+        select: '',
+        notes: '',
+        email: '',
+        smname: '',
+        timestamp: '',
+        ponumber: '',
+        total: ''
+    }],
         wrapper2 = $$('.mystepper1');
     wrapper = $$('#stepper_prod_1');
     content = '';
@@ -1144,21 +969,14 @@ app.createProducts = function () {
             } else {
                 oldpricing = '';
             }
-            //console.log(cant);
             content = '';
             content += '<div id="myStepper_' + products[i].id + '" data-id="' + products[i].id + '" class="stepper stepper-small-md stepper-small stepper-init" style="padding:0; float:right; margin:0 auto;">'
             content += '<div class="stepper-button-minus" onclick="app.updateItem(' + products[i].id + ',' + products[i].stock + ')"  data-type="minus"></div>'
-            /*content += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="'+ carts.items[vv].cant + '" min="0" max="100">'*/
             content += '<input type="number" id="prod_' + products[i].id + '" readonly name="quant[' + products[i].id + ']" class="form-control input-number quantity manage-qtty"  value="0" min="0" max="100">'
             content += ' <div class="stepper-button-plus" prod-' + products[i].id + '"  data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + products[i].id + ');" ></div>'
             content += '</div>'
         }
     }
-    // $$('#stepper_prod_1').html('');
-    //  $$('#stepper_prod_1').html(content);    
-    // wrapper.html(content);
-    //  wrapper.html('<div>help</div>');
-    // wrapper2.html('<div>help</div>');
     localStorage.setItem('products', JSON.stringify(products))
 }
 
@@ -1170,18 +988,13 @@ function callFunction(func) {
 
 
 app.addtoCart = function (id) {
-    //function checkHasUer(){
     if (!localStorage.getItem("idMember")) {
         alert("Please select a customer.");
         app.router.navigate('/catalogb/');
         return false;
     } else {
         console.log("continue shopping");
-        //
-        //console.log("add to cart");
-        // var l = Ladda.create(document.querySelector('.prod-' + id));
         var l = $$('.prod_' + id);
-        // l.start();
         var products = JSON.parse(localStorage.getItem('products')),
             producto = _.find(products, {
                 'id': id
@@ -1205,18 +1018,15 @@ app.addtoCart = function (id) {
                             producto.stock,
                             producto.oldprice,
                             producto.notes,
-                            // producto.cname = localStorage.getItem("idMember"),
                             producto.cname,
                             producto.check = "notsync",
                             producto.select,
                             producto.email,
-                            // producto.smname = localStorage.getItem("idSalesMngr"),
                             producto.smname,
                             producto.timestamp,
                             producto.ponumber,
                             producto.total = localStorage.getItem("grndTotal")
                         )
-                        // l.stop();
                         console.log(parseInt(cant))
                         $$('body').css('opacity', '1');
                     }, 100)
@@ -1232,13 +1042,11 @@ app.addtoCart = function (id) {
     }
 }
 app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-    //si le pasamos un valor negativo a la cantidad, se descuenta del carrito
     var curProd = _.find(cart.items, {
         'id': id
     })
     console.log("search products");
     if (undefined != curProd && curProd != null) {
-        //ya existe el producto, aÃ±adimos uno mÃ¡s a su cantidad
         if (curProd.cant < available) {
             curProd.cant = parseInt(curProd.cant + cant)
         } else {
@@ -1246,7 +1054,6 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
         }
         $$('#prod_' + curProd.id).val(curProd.cant);
     } else {
-        //sino existe lo agregamos al carrito
         var prod = {
             id: id,
             sku: sku,
@@ -1297,10 +1104,7 @@ app.getProducts = function () {
         var cartmemberinfo = '';
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
-        //  $$("#nowserving").html(activeCustomer);
         var timepo = localStorage.getItem("timeandponumber");
-        // $$("#servingpo").html(timepo);
-        // alert(timepo +' '+activeCustomer);
         cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
             '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
@@ -1312,7 +1116,6 @@ app.getProducts = function () {
             }
             total = total + (n.cant * n.price);
             items += '<tr>'
-            //items += '<td><img src="'+n.img+'" /></td>'
             items += '<td><span class="qant">' + n.cant + '</span></td>'
             items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
             items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
@@ -1321,10 +1124,7 @@ app.getProducts = function () {
             $$('#prod_' + n.id)
                 .val(n.cant);
         });
-        //agregar el total al carrito
         items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
-        //  items += '<tr><td colspan="5" class="total"></td></tr>'
-        //  items += '<tr><td colspan="5"> <div class="submitForm"></div></td></tr>'
         wrapper.html(items);
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
@@ -1333,16 +1133,13 @@ app.getProducts = function () {
     }
 }
 app.updateItem = function (id, available) {
-    //resta uno a la cantidad del carrito de compras
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
         },
         curProd = _.find(cart.items, {
             'id': id
         })
-    //actualizar el carrito
     curProd.cant = curProd.cant - 1;
-    //validar que la cantidad no sea menor a 0
     if (curProd.cant > 0) {
         localStorage.setItem('cart', JSON.stringify(cart))
         app.init()
@@ -1380,19 +1177,16 @@ app.deleteProd = function (id, remove) {
     }
 }
 app.updatePayForm = function () {
-    //eso va a generar un formulario dinamico para paypal
-    //con los products y sus precios
-   
+
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
         items: []
     };
     localStorage.setItem("purchaseorder", JSON.stringify(cart));
     var grandtotal = localStorage.getItem("grndTotal");
     var activeCustomer = localStorage.getItem("fnMember");
-      
+
     var timepo = localStorage.getItem("timeandponumber");
-    //var statics = '<form action="https://www.paypal.com/cgi-bin/webscr" method="post"><input type="hidden" name="cmd" value="_cart"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="USD" /><input type="hidden" name="business" value="' + business_paypal + '">',
-    var statics = '<form  method="post"><input type="hidden" name="customer" value="'+activeCustomer+'"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="'+timepo+'"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
+    var statics = '<form  method="post"><input type="hidden" name="customer" value="' + activeCustomer + '"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="' + timepo + '"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
         dinamic = '',
         wrapper = $$('.submitForm')
     wrapper.html('')
@@ -1404,12 +1198,10 @@ app.updatePayForm = function () {
             dinamic += '<input type="hidden" name="item_sku_' + i + '" value="' + prod.sku + '">'
             dinamic += '<input type="hidden" name="item_number_' + i + '" value="' + prod.id + '" />'
             dinamic += '<input type="hidden" name="quantity_' + i + '" value="' + prod.cant + '" />'
-            dinamic += '<input type="hidden" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />' // added by jrn
+            dinamic += '<input type="hidden" class="grndTotal" name="total_' + i + '" value="' + grandtotal + '" />'
             i++;
 
         })
-        // statics += dinamic + '<button type="button" class="pay btn-checkout btn btn-success">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
-        //statics += dinamic + '<a href="#" type="button" class="popup-open btn-checkout btn btn-success" data-popup="#my-order-popup">CHECKOUT<i class="ion-chevron-right"></i></button></form>'
         statics += dinamic + '</form>'
         wrapper.html(statics)
     }
@@ -1427,7 +1219,7 @@ $$(".btn-checkout")
 
         $$("#itemRecap").html(myItems);
         $$("#itemRecap tbody").addClass("cart");
-        
+
 
         function Unix_timestamp(t) {
             var dt = new Date(t * 1000);
@@ -1435,7 +1227,6 @@ $$(".btn-checkout")
             var hr = dt.getHours();
             var m = "0" + dt.getMinutes();
             var s = "0" + dt.getSeconds();
-            //  return dt + '-' + hr + ':' + m.substr(-2) + ':' + s.substr(-2);
             return d + '-' + hr + ':' + m.substr(-2);
 
         }
@@ -1454,39 +1245,11 @@ $$(".btn-checkout")
             .removeClass("modal-in");
         $$(".popup-backdrop")
             .removeClass("backdrop-in");
-        //  my-popup-confirmation
         app.router.navigate('/');
-        ///Adicionar(txtClients);
     });
 
 
 
-
-/*
-$$(".btn-checkouta").on('click', function () {
-    alert('checkout');
-    var myCname = localStorage.getItem("fnMember");
-    var myPoNumber = localStorage.getItem("timeandponumber");
-    var myItems = $$("#thisCart").html();
- 
-    function Unix_timestamp(t) {
-        var dt = new Date(t * 1000);
-        var hr = dt.getHours();
-        var m = "0" + dt.getMinutes();
-        var s = "0" + dt.getSeconds();
-        return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
-    }
- 
-    var theTime = Unix_timestamp(myPoNumber);
- 
-    $$(txtItems).val(myItems);
-    $$("#txtName").val(myCname);
-    $$("#txtCode").val(myPoNumber);
-    $$("#txtDate").val(theTime);
-    app.router.navigate('/');
-    Adicionar(txtClients);
-})*/
-/***************************** */
 
 app.resetCart = function () {
     var retVal = confirm("This will clear cart data? Do you want to continue ?");
@@ -1500,7 +1263,6 @@ app.resetCart = function () {
         $$(".cart, .mycart, #totalItems")
             .html("");
 
-        //  localStorage.removeItem("purchaseorder");
         mainView.router.refreshPage();
         app.dialog.alert("Cache is now cleared.");
         mainView.router.navigate(mainView.router.currentRoute.url, {
@@ -1529,29 +1291,18 @@ app.resetPOCart = function () {
     $$(".cart, .mycart,.cartmemberinfo, #totalItems")
         .html("");
 
-    //  localStorage.removeItem("purchaseorder");
 
     console.log("Cache is now cleared.");
 
-     app.router.navigate('/catalogc/');
-    /*
-      ordersView.router.navigate(ordersView.router.currentRoute.url, {
-          ignoreCache: true,
-          reloadCurrent: true
-      });*/
-    // ordersView.router.refreshPage();
+    app.router.navigate('/catalogc/');
     location.reload();
-   // return true;
 
 }
-/************************************* */
 app.getSKU = function (ThisSKU) {
     sessionStorage.setItem("skuItem", ThisSKU);
 }
-// Get the container element
 var btnContainer = $$(".toolbar-inner");
 
-// Get all buttons with class="btn" inside the container
 var btns = $$(".tab-link");
 
 btns.on("click", function () {
@@ -1559,19 +1310,12 @@ btns.on("click", function () {
     $$(this)
         .addClass("tab-link-active");
 })
-// Loop through the buttons and add the active class to the current/clicked button
 for (var i = 0; i < btns.length; i++) {
-  btns.on("click", function() {
-   /* var current = $$(".tab-link-active");
-    current[0].className = current[0].toggleClass("tab-link-active");
-    this.addClass("tab-link-active")*/
-  });
+    btns.on("click", function () {});
 }
 app.productsPage = function () {
     var activeSKU = sessionStorage.getItem("skuItem");
     console.log(activeSKU);
-    //var ThisSKU = $$(this).attr("data-sku");
-    //var activeSKU = sessionStorage.getItem("ThisSKU");
     var skusList = localStorage.getItem("products");
     skus = JSON.parse(skusList);
     console.log(skus);
@@ -1604,8 +1348,6 @@ app.productsPage = function () {
         var state = product.state;
         var statecolor = product.statecolor;
         var stock = product.stock;
-        // var currency = localStorage.getItem("myCurrency");
-        // console.log(cat+"|"+desc+"|"+id+"|"+img+"|"+name+"|"+price+"|"+size);
         $$("#thisName").html(name);
         $$("#prodImg").html('<img src="' + img + '" class="img-fluid prod-page-image" alt="' + name + '">');
         $$("#thisBadges").html('<a href="">' +
@@ -1617,30 +1359,25 @@ app.productsPage = function () {
             '</span>' +
             '<span>' + currency + '' + price + '</span>')
         $$("#thisDesc").html(desc);
-         $$("#thisAddCart").html('<input type="number" value="1" id="prod_'+id +'" readonly name="quant['+id+']"  aria-label="Search" class="form-control" style="width: 100px">'+
-         '<button class="btn btn-primary btn-md my-0 btn-number waves-effect  submit ladda-button waves-light" type="button"  onclick="app.addtoCart(' +id + ');">Add to cart'+
-           '<i class="fa fa-shopping-cart ml-1"></i>'+
-        '</button>');
+        $$("#thisAddCart").html('<input type="number" value="1" id="prod_' + id + '" readonly name="quant[' + id + ']"  aria-label="Search" class="form-control" style="width: 100px">' +
+            '<button class="btn btn-primary btn-md my-0 btn-number waves-effect  submit ladda-button waves-light" type="button"  onclick="app.addtoCart(' + id + ');">Add to cart' +
+            '<i class="fa fa-shopping-cart ml-1"></i>' +
+            '</button>');
         $$("#footerBtns").html('<div class="row"><div class="btn-group" role="group" aria-label="Basic">' +
             '<button type="button" class="btn btn-success manage-qtty btn-number h-40 waves-effect waves-light" onclick="app.updateItem(' + id + ',' + stock + ')" data-type="minus"><i class="material-icons">remove</i></button>' +
             '<input type="number"id="prod_' + id + '" readonly="" name="quant[' + id + ']" class="form-control input-number quantity manage-qtty h-40" value="0" min="0" max="100" style="height:40px; width:80px;">' +
             '<button type="button" class="btn btn-success btn-number waves-effect h-40 submit ladda-button waves-light prod-' + id + '" data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + id + ');"><i class="material-icons">add</i></button>' +
-            //'<button type="button" class="btn btn-number waves-effect  submit ladda-button waves-light grey-borders btn-success prod-'+id+'" data-type="plus" data-style="slide-right" onclick="app.addtoCart('+id+');">Add to Cart</button>');
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
     }
 }
-/***************************** */
-//  $$(document).ready(function () {
 $$(document).on('DOMContentLoaded', function () {
 
     app.init();
+    app.purchaseOrders();
     app.updatePayForm();
-  //  app.createProducts();
     app.getProducts();
 
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
 
 });
-
-/**************************************** CART */

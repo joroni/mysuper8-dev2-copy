@@ -2,6 +2,12 @@
   <div class="page" data-name="catalog" id="catalog">
     <div class="navbar">
       <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="ios-only">Back</span>
+          </a>
+        </div>
         <div class="title">Catalog</div>
       </div>
     </div>
@@ -43,14 +49,16 @@
   </div>
 </template>
 <script>
-  var thiscategory = localStorage.getItem("category");
+   Categorize(selectedCat);
   return {
     data: function () {
+    //  thisCat = selectedCat;
       return {
         //products: this.$root.products,
         products:_.filter(this.$root.products, function(item, index) {
-  return _.contains([thiscategory], item.cat);
-})
+         
+        return _.contains([selectedCat], item.cat);
+        })
       };
     }
   }

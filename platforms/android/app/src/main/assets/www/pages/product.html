@@ -8,7 +8,7 @@
               <span class="ios-only">Back</span>
             </a>
           </div>
-          <div class="title">{{product.name}}</div>
+          <div class="title">{{product.cat}} > {{product.name}}</div>
         </div>
       </div>
       <div class="page-content">
@@ -18,7 +18,7 @@
   
             <!--Grid row-->
             <div class="row wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
-  
+            
               <!--Grid column-->
               <div class="col-md-6 mb-4 centered" id="prodImg"><img src="{{product.img}}" class="img-fluid prod-page-image"
                   alt="{{product.name}}"></div>
@@ -29,6 +29,7 @@
   
                   <h2 class="centered" id="thisName">{{product.name}}</h2>
                   <p class="lead small centered" id="thisStock">In Stock: {{product.stock}}</p>
+                  
                 </div>
                 <!--Content-->
                 <div class="p-1">
