@@ -341,14 +341,16 @@ $$('a.getsku')
     
 $$(document).on('page:init', '.page[data-name="catalogb"]', function (e,page) {
         
-       setTimeout(function (e) {
+      /* setTimeout(function (e) {
        // page.path('/catalog/');
        
            // Categorize(selectedCat);
             //selectedCat = localStorage.getItem("category");
             //app.preloader.hide();
-        }, 1000);
+        }, 1000);*/
     })
+
+    
 
 app.thisItem = function (codeID) {
     var purchase_orders = JSON.parse(localStorage.getItem("txtClients"));
@@ -664,9 +666,48 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e,page) {
         }
     });
 */
-    $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
-        app.purchaseOrders();
-    });
+   
+$$(document)
+.on('page:init', '.page[data-name="catalogc"]', function (e) {
+    app.purchaseOrders();
+    $$('.item-link').on('click', function () {
+        var codeID = $$(this).attr("data-code");
+        app.thisItem(codeID);
+
+    })
+});
+$$(document)
+.on('DOMContentLoaded', function () {
+    app.purchaseOrders();
+    
+
+});
+
+
+app.thisItem = function (codeID) {
+// var purchase_orders = [{"code":"1541745596212","name":"Jane Doe","date":"Fri Nov 09 2018 14:40:03 GMT+0800 (Philippine Standard Time)-1:36","items":"<tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000001\">Denim Shirt</h3></td><td colspan=\"2\"><p class=\"right\"><del></del></p><p class=\"price right\">₱299.00</p></td></tr><tr class=\"total-row\"><td colspan=\"2\"> </td><td id=\"total\" class=\"total right\" colspan=\"3\">₱299.00 </td></tr>","notes":"Processing"},{"code":"1541745657473","name":"Jane Doe","date":"Fri Nov 09 2018 14:41:02 GMT+0800 (Philippine Standard Time)-18:37","items":"<tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000002\">Drypers Mega Pack</h3></td><td colspan=\"2\"><p class=\"right\"><del>₱630.00</del></p><p class=\"price right\">₱503.00</p></td></tr><tr><td><span class=\"qant\">1</span></td><td><h3 class=\"title\" data-id=\"A0000003\">Cool Shirt</h3></td><td colspan=\"2\"><p class=\"right\"><del></del></p><p class=\"price right\">₱99.00</p></td></tr><tr class=\"total-row\"><td colspan=\"2\"> </td><td id=\"total\" class=\"total right\" colspan=\"3\">₱602.00 </td></tr>","notes":"Processing"}];
+var purchase_orders = JSON.parse(localStorage.getItem("txtClients"));
+
+var evens = _.filter(purchase_orders, function (obj) {
+    return ~obj.code.toLowerCase().indexOf(codeID);
+});
+localStorage.setItem("POselected", JSON.stringify(evens));
+// alert(JSON.stringify(evens));   
+var newdata = evens;
+
+$.each(newdata, function (i, v) {
+    var shortdate = v.date.substr(0, v.date.lastIndexOf(" GMT") + 1);
+    $('#thisPOdata').html('<div class="block"><ul>' +
+        '<li><label>PO #:</label>' + v.code + '</li>' +
+        '<li><label>Customer:</label>' + v.name + '</li>' +
+        '<li><label>Date:</label>' + shortdate + '</li></ul>' +
+        '<div><table class="table">' + v.items + '</table></div></div>'
+    );
+})
+
+$$(".table tbody").addClass("cart");
+}
+
    /* 
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.createProducts();
