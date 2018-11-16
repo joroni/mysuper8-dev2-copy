@@ -374,7 +374,7 @@ app.thisItem = function (codeID) {
 
 
 $$(document).on('page:init', '.page[data-name="activepo"]', function (e) {
-    app.thisItem(codeID);
+    app.thisItem(codeID)
     alert('activepo');
 });
 app.purchaseOrders = function () {
