@@ -148,7 +148,11 @@ var app = new Framework7({
     id: 'io.super8.super8app',
     name: 'Super8',
     theme: 'auto',
-    pushState: true,
+    pushState: false,
+    cache: false,
+    cacheDuration: 0, 
+    material: true,
+    reloadAll: true,
     data: function () {
         return {
             user: {
@@ -330,131 +334,21 @@ $$('#my-login-screen .login-button')
 $$('a.getsku')
     .on('click', function () {
         sessionStorage.setItem("skuItem", ThisSKU);
-        app.dialog.alert(selectedCat);
+      //  app.dialog.alert(selectedCat);
     });
 
-$$(document)
-    .on('page:init', '.page[data-name="catalog"]', function (e) {
-        app.preloader.show();
-        setTimeout(function (selectedCat) {
-            selectedCat = localStorage.getItem("category");
-            app.preloader.hide();
-        }, 2000);
 
-
-
-
-       // setTimeout(function () {}, 800);
-        console.log("Catalog");
-        app.addToMyCart = function (id) {
-            if (!localStorage.getItem("idMember")) {
-                app.dialog.alert("Please select a customer.");
-                app.router.navigate('/catalogb/');
-                return false;
-            } else {
-                console.log("continue shopping");
-                var l = $$('.prod-' + id);
-                var products = JSON.parse(localStorage.getItem('products')),
-                    producto = _.find(products, {
-                        'id': id
-                    }),
-                    cant = 1;
-                $$('body')
-                    .css('opacity', '0.5');
-                if (cant <= producto.stock) {
-                    if (undefined != producto) {
-                        if (cant > 0) {
-                            setTimeout(function () {
-                                var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                                    items: []
-                                };
-                                app.searchProd(cart,
-                                    producto.id,
-                                    producto.sku,
-                                    parseInt(cant),
-                                    producto.name,
-                                    producto.price,
-                                    producto.img,
-                                    producto.stock,
-                                    producto.oldprice,
-                                    producto.notes,
-                                    producto.cname,
-                                    producto.check = "notsync",
-                                    producto.select,
-                                    producto.email,
-                                    producto.smname,
-                                    producto.timestamp,
-                                    producto.ponumber,
-                                    producto.total = localStorage.getItem("grndTotal")
-                                )
-                                console.log(parseInt(cant))
-                                $$('body')
-                                    .css('opacity', '1');
-                            }, 100)
-                        } else {
-                            app.dialog.alert('Only larger quantities are allowed to zero');
-                        }
-                    } else {
-                        app.dialog.alert('Oops! Something we wrong, try again later')
-                    }
-                } else {
-                    app.dialog.alert('You can not add more of this product');
-                }
-            }
-        }
-        app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-            var curProd = _.find(cart.items, {
-                'id': id
-            })
-            console.log("search products");
-            if (undefined != curProd && curProd != null) {
-                if (curProd.cant < available) {
-                    curProd.cant = parseInt(curProd.cant + cant);
-                } else {
-                    app.dialog.alert('This product is currently out of stock');
-                }
-                $$('#prod_' + curProd.id)
-                    .val(curProd.cant);
-            } else {
-                var timeandponumber = new Date()
-                    .getTime();
-                localStorage.setItem("timeandponumber", timeandponumber);
-                var timeandpo = localStorage.getItem("timeandponumber");
-                var prod = {
-                    cant: cant,
-                    check: check,
-                    cname: cname = localStorage.getItem("idMember"),
-                    email: email,
-                    id: id,
-                    img: img,
-                    name: name,
-                    notes: notes,
-                    oldprice: oldprice,
-                    ponumber: timeandpo,
-                    price: price,
-                    select: select,
-                    sku: sku,
-                    smname: smname = localStorage.getItem("idSalesMngr"),
-                    timestamp: timeandpo,
-                    total: localStorage.getItem("grndTotal")
-                }
-                cart.items.push(prod)
-            }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            app.init();
-            app.getProducts();
-            app.updatePayForm();
-        }
-    });
-$$(document)
-    .on('page:init', '.page[data-name="catalogc"]', function (e) {
-        app.purchaseOrders();
-        $$('.item-link').on('click', function () {
-            var codeID = $$(this).attr("data-code");
-            app.thisItem(codeID);
-
-        })
-    });
+    
+$$(document).on('page:init', '.page[data-name="catalogb"]', function (e,page) {
+        
+       setTimeout(function (e) {
+       // page.path('/catalog/');
+       
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
+            //app.preloader.hide();
+        }, 1000);
+    })
 
 app.thisItem = function (codeID) {
     var purchase_orders = JSON.parse(localStorage.getItem("txtClients"));
@@ -480,7 +374,7 @@ app.thisItem = function (codeID) {
 
 
 $$(document).on('page:init', '.page[data-name="activepo"]', function (e) {
-
+    app.thisItem(codeID)
     alert('activepo');
 });
 app.purchaseOrders = function () {
@@ -643,16 +537,146 @@ $$(document)
     .on('page:init', '.page[data-name="homes"]', function (e) {
 
     });
-$$(document)
-    .on('page:init', '.page[data-name="catalog"]', function (e) {
+    
+ /*   
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e,page) {
+        
+    console.log(page);
+        
+      //  Categorize(selectedCat);
+     /* page.router.navigate(page.router.currentRoute.url,{
+        ignoreCache:true,
+        reloadCurrent:true
+    })*
+  
+        //app.preloader.show();
+      setTimeout(function (e) {
+       // page.path('/catalog/');
+       // app.router.navigate('/catalogb/');
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
+            app.preloader.hide();
+        }, 1000);
+
+
+
+
+       // setTimeout(function () {}, 800);
+       // console.log("Catalog");
+        app.addToMyCart = function (id) {
+            if (!localStorage.getItem("idMember")) {
+                app.dialog.alert("Please select a customer.");
+                app.router.navigate('/catalogb/');
+                return false;
+            } else {
+                console.log("continue shopping");
+                var l = $$('.prod-' + id);
+                var products = JSON.parse(localStorage.getItem('products')),
+                    producto = _.find(products, {
+                        'id': id
+                    }),
+                    cant = 1;
+                $$('body')
+                    .css('opacity', '0.5');
+                if (cant <= producto.stock) {
+                    if (undefined != producto) {
+                        if (cant > 0) {
+                            setTimeout(function () {
+                                var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                    items: []
+                                };
+                                app.searchProd(cart,
+                                    producto.id,
+                                    producto.sku,
+                                    parseInt(cant),
+                                    producto.name,
+                                    producto.price,
+                                    producto.img,
+                                    producto.stock,
+                                    producto.oldprice,
+                                    producto.notes,
+                                    producto.cname,
+                                    producto.check = "notsync",
+                                    producto.select,
+                                    producto.email,
+                                    producto.smname,
+                                    producto.timestamp,
+                                    producto.ponumber,
+                                    producto.total = localStorage.getItem("grndTotal")
+                                )
+                                console.log(parseInt(cant))
+                                $$('body')
+                                    .css('opacity', '1');
+                            }, 100)
+                        } else {
+                            app.dialog.alert('Only larger quantities are allowed to zero');
+                        }
+                    } else {
+                        app.dialog.alert('Oops! Something we wrong, try again later')
+                    }
+                } else {
+                    app.dialog.alert('You can not add more of this product');
+                }
+            }
+        }
+        app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+            var curProd = _.find(cart.items, {
+                'id': id
+            })
+            console.log("search products");
+            if (undefined != curProd && curProd != null) {
+                if (curProd.cant < available) {
+                    curProd.cant = parseInt(curProd.cant + cant);
+                } else {
+                    app.dialog.alert('This product is currently out of stock');
+                }
+                $$('#prod_' + curProd.id)
+                    .val(curProd.cant);
+            } else {
+                var timeandponumber = new Date()
+                    .getTime();
+                localStorage.setItem("timeandponumber", timeandponumber);
+                var timeandpo = localStorage.getItem("timeandponumber");
+                var prod = {
+                    cant: cant,
+                    check: check,
+                    cname: cname = localStorage.getItem("idMember"),
+                    email: email,
+                    id: id,
+                    img: img,
+                    name: name,
+                    notes: notes,
+                    oldprice: oldprice,
+                    ponumber: timeandpo,
+                    price: price,
+                    select: select,
+                    sku: sku,
+                    smname: smname = localStorage.getItem("idSalesMngr"),
+                    timestamp: timeandpo,
+                    total: localStorage.getItem("grndTotal")
+                }
+                cart.items.push(prod)
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            app.init();
+            app.getProducts();
+            app.updatePayForm();
+        }
+    });
+*/
+    $$(document).on('page:init', '.page[data-name="catalogc"]', function (e) {
+        app.purchaseOrders();
+    });
+   /* 
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         app.createProducts();
       //  app.loadStore();
+       // app.preloader.show();
         app.preloader.show();
-        app.preloader.show();
-       /* setTimeout(function () {
+       setTimeout(function () {
             app.preloader.hide();
-            app.loadStore();
-        }, 800);*/
+          //  app.loadStore();
+        }, 800);
         console.log("Catalog");
         app.addToMyCart = function (id) {
             if (!localStorage.getItem("idMember")) {
@@ -762,27 +786,175 @@ $$(document)
             app.init();
             app.getProducts();
             app.updatePayForm();
+    }
+});
+*/
+
+
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
+        
+    app.createProducts();
+    //  app.loadStore();
+      app.preloader.show();
+      app.preloader.show();
+     setTimeout(function () {
+          app.preloader.hide();
+        //  app.loadStore();
+      }, 800);
+      console.log("Catalog");
+  
+        //app.preloader.show();
+      setTimeout(function (e) {
+       // page.path('/catalog/');
+       // app.router.navigate('/catalogb/');
+           // Categorize(selectedCat);
+            //selectedCat = localStorage.getItem("category");
+            app.preloader.hide();
+        }, 1000);
+
+
+
+
+       // setTimeout(function () {}, 800);
+       // console.log("Catalog");
+        app.addToMyCart = function (id) {
+            if (!localStorage.getItem("idMember")) {
+                app.dialog.alert("Please select a customer.");
+                app.router.navigate('/catalogb/');
+                return false;
+            } else {
+                console.log("continue shopping");
+                var l = $$('.prod-' + id);
+                var products = JSON.parse(localStorage.getItem('products')),
+                    producto = _.find(products, {
+                        'id': id
+                    }),
+                    cant = 1;
+                $$('body')
+                    .css('opacity', '0.5');
+                if (cant <= producto.stock) {
+                    if (undefined != producto) {
+                        if (cant > 0) {
+                            setTimeout(function () {
+                                var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                    items: []
+                                };
+                                app.searchProd(cart,
+                                    producto.id,
+                                    producto.sku,
+                                    parseInt(cant),
+                                    producto.name,
+                                    producto.price,
+                                    producto.img,
+                                    producto.stock,
+                                    producto.oldprice,
+                                    producto.notes,
+                                    producto.cname,
+                                    producto.check = "notsync",
+                                    producto.select,
+                                    producto.email,
+                                    producto.smname,
+                                    producto.timestamp,
+                                    producto.ponumber,
+                                    producto.total = localStorage.getItem("grndTotal")
+                                )
+                                console.log(parseInt(cant))
+                                $$('body')
+                                    .css('opacity', '1');
+                            }, 100)
+                        } else {
+                            app.dialog.alert('Only larger quantities are allowed to zero');
+                        }
+                    } else {
+                        app.dialog.alert('Oops! Something we wrong, try again later')
+                    }
+                } else {
+                    app.dialog.alert('You can not add more of this product');
+                }
+            }
+        }
+        app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+            var curProd = _.find(cart.items, {
+                'id': id
+            })
+            console.log("search products");
+            if (undefined != curProd && curProd != null) {
+                if (curProd.cant < available) {
+                    curProd.cant = parseInt(curProd.cant + cant);
+                } else {
+                    app.dialog.alert('This product is currently out of stock');
+                }
+                $$('#prod_' + curProd.id)
+                    .val(curProd.cant);
+            } else {
+                var timeandponumber = new Date()
+                    .getTime();
+                localStorage.setItem("timeandponumber", timeandponumber);
+                var timeandpo = localStorage.getItem("timeandponumber");
+                var prod = {
+                    cant: cant,
+                    check: check,
+                    cname: cname = localStorage.getItem("idMember"),
+                    email: email,
+                    id: id,
+                    img: img,
+                    name: name,
+                    notes: notes,
+                    oldprice: oldprice,
+                    ponumber: timeandpo,
+                    price: price,
+                    select: select,
+                    sku: sku,
+                    smname: smname = localStorage.getItem("idSalesMngr"),
+                    timestamp: timeandpo,
+                    total: localStorage.getItem("grndTotal")
+                }
+                cart.items.push(prod)
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            app.init();
+            app.getProducts();
+            app.updatePayForm();
         }
     });
 
+    var selectedCat = "";
+    function Categorize(selectedCat){
+    console.log(selectedCat);
+    thisCat = "";
+    }
+
+
+   
+    function CategorizeReset(selectedCat){
+       
+      /*  selectedCat = "";
+    console.log(selectedCat);
+    thisCat = selectedCat;*/
+    }
+
+
+
+
+
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
    // console.log('Category');
+  
    
-
     $$('#categories .category').on('click', function () {
-        selectedCat = $$(this).attr("alt");
-        Categorize(selectedCat);
+        //selectedCat;
+        //selectedCat = $$(this).attr("alt");
+        localStorage.setItem('clicked',$$(this).attr("alt"));
+        app.router.navigate('/catalog/'+$$(this).attr("alt")+'/');
+       // Categorize(selectedCat);
         
     });
 
 });
 
 
-var selectedCat;
-function Categorize(selectedCat){
-  console.log(selectedCat);
-  thisCat = selectedCat;
-}
+
+
 
 
 //app.loadStore = function () {}
@@ -1374,6 +1546,7 @@ $$(document).on('DOMContentLoaded', function () {
 
     app.init();
     app.purchaseOrders();
+    console.log("orders")
     app.updatePayForm();
     app.getProducts();
 
