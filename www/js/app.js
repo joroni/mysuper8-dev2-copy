@@ -1,5 +1,5 @@
 var $$ = Dom7;
-
+ 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
 var base_url = "http://localhost/slim";
@@ -157,8 +157,9 @@ var app = new Framework7({
                 lastName: 'Doe',
             },
             productcs: JSON.parse(orderItems),
-            //products: JSON.stringify(products),
-            products: [{
+            //products: JSON.stringify(localStorage.getItem("jsonproducts")),
+            products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
+           /* productsss: [{
                 id: '1',
                 sku: 'A0000001',
                 name: 'Denim Shirt',
@@ -291,7 +292,7 @@ var app = new Framework7({
                 ponumber: '',
                 total: ''
             }]
-        };
+        */};
     },
     methods: {
         helloWorld: function () {
@@ -795,8 +796,24 @@ app.loadStore = function () {
         $$('.totalAmount')
             .text(currency_icon + ' ' + total + ' USD');
     }
-    app.pullProductData();
+   
 }
+
+app.pullProductJSONData = function () {
+    console.log("Pulling raw json data...");
+    app.preloader.show();
+    // Perform Ajax request
+    app.request.get(base_url + '/public/api/jsonproducts', function (data) {
+        // Hide preloader when Ajax request completed
+         localStorage.setItem("jsonproducts", data);
+
+        app.preloader.hide();
+        console.log(data);
+        console.log("Pulling json data complete.");
+
+    });
+}
+
 
 app.pullProductData = function () {
     console.log("Pulling data...");
@@ -814,7 +831,8 @@ app.pullProductData = function () {
 }
 app.createProducts = function () {
     console.log("create products");
-    var products = [{
+    var products = JSON.parse(localStorage.getItem("products")),
+   /* var products = [{
         id: 1,
         sku: 'A0000001',
         name: 'Denim Shirt',
@@ -946,7 +964,7 @@ app.createProducts = function () {
         timestamp: '',
         ponumber: '',
         total: ''
-    }],
+    }],*/
         // wrapper2 = $$('.mystepper1');
         wrapper = $$('#stepper_prod_1');
     content = '';
@@ -1364,6 +1382,8 @@ $$(document).on('DOMContentLoaded', function () {
     app.purchaseOrders();
     app.updatePayForm();
     app.getProducts();
+    app.pullProductData();
+    app.pullProductJSONData();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
 
