@@ -2,6 +2,7 @@ var $$ = Dom7;
 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
+var base_url = "http://localhost/slim";
 /*var dynamicproducts = [{
     id: 1,
     sku: 'A0000001',
@@ -162,7 +163,6 @@ var app = new Framework7({
                 sku: 'A0000001',
                 name: 'Denim Shirt',
                 cat: 'Sports Wear',
-                
                 state: 'New',
                 statecolor: 'red',
                 size: '',
@@ -185,7 +185,6 @@ var app = new Framework7({
                 sku: 'A0000002',
                 name: 'Drypers Mega Pack',
                 cat: 'Baby',
-                
                 state: 'Sale',
                 statecolor: 'green',
                 size: 'Large x 62 pcs',
@@ -208,7 +207,6 @@ var app = new Framework7({
                 sku: 'A0000003',
                 name: 'Cool Shirt',
                 cat: 'Out Wear',
-               
                 state: '',
                 statecolor: '',
                 size: '',
@@ -231,7 +229,6 @@ var app = new Framework7({
                 sku: 'A0000004',
                 name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
                 cat: 'Coffee',
-               
                 state: '',
                 statecolor: '',
                 size: '3 pcs x 180 ml',
@@ -254,7 +251,6 @@ var app = new Framework7({
                 sku: 'A0000005',
                 name: 'Gingen Strong Ginger Formula Tea',
                 cat: 'Tea',
-               
                 state: 'Best Seller',
                 size: '',
                 statecolor: 'blue',
@@ -277,7 +273,6 @@ var app = new Framework7({
                 sku: 'A0000006',
                 name: 'Cool Shirt',
                 cat: 'Out Wear',
-               
                 state: '',
                 statecolor: '',
                 size: '3 pcs x 180 ml',
@@ -333,119 +328,115 @@ $$('a.getsku')
         app.dialog.alert(selectedCat);
     });
 
-$$(document)
-    .on('page:init', '.page[data-name="catalog"]', function (e) {
-        app.preloader.show();
-        setTimeout(function (selectedCat) {
-            selectedCat = localStorage.getItem("category");
-            app.preloader.hide();
-        }, 2000);
+$$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
+    app.preloader.show();
+    setTimeout(function (selectedCat) {
+        selectedCat = localStorage.getItem("category");
+        app.preloader.hide();
+    }, 2000);
 
-
-
-
-       // setTimeout(function () {}, 800);
-        console.log("Catalog");
-        app.addToMyCart = function (id) {
-            if (!localStorage.getItem("idMember")) {
-                app.dialog.alert("Please select a customer.");
-                app.router.navigate('/catalogb/');
-                return false;
-            } else {
-                console.log("continue shopping");
-                var l = $$('.prod-' + id);
-                var products = JSON.parse(localStorage.getItem('products')),
-                    producto = _.find(products, {
-                        'id': id
-                    }),
-                    cant = 1;
-                $$('body')
-                    .css('opacity', '0.5');
-                if (cant <= producto.stock) {
-                    if (undefined != producto) {
-                        if (cant > 0) {
-                            setTimeout(function () {
-                                var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                                    items: []
-                                };
-                                app.searchProd(cart,
-                                    producto.id,
-                                    producto.sku,
-                                    parseInt(cant),
-                                    producto.name,
-                                    producto.price,
-                                    producto.img,
-                                    producto.stock,
-                                    producto.oldprice,
-                                    producto.notes,
-                                    producto.cname,
-                                    producto.check = "notsync",
-                                    producto.select,
-                                    producto.email,
-                                    producto.smname,
-                                    producto.timestamp,
-                                    producto.ponumber,
-                                    producto.total = localStorage.getItem("grndTotal")
-                                )
-                                console.log(parseInt(cant))
-                                $$('body')
-                                    .css('opacity', '1');
-                            }, 100)
-                        } else {
-                            app.dialog.alert('Only larger quantities are allowed to zero');
-                        }
+    // setTimeout(function () {}, 800);
+    console.log("Catalog");
+    app.addToMyCart = function (id) {
+        if (!localStorage.getItem("idMember")) {
+            app.dialog.alert("Please select a customer.");
+            app.router.navigate('/catalogb/');
+            return false;
+        } else {
+            console.log("continue shopping");
+            var l = $$('.prod-' + id);
+            var products = JSON.parse(localStorage.getItem('products')),
+                producto = _.find(products, {
+                    'id': id
+                }),
+                cant = 1;
+            $$('body')
+                .css('opacity', '0.5');
+            if (cant <= producto.stock) {
+                if (undefined != producto) {
+                    if (cant > 0) {
+                        setTimeout(function () {
+                            var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+                                items: []
+                            };
+                            app.searchProd(cart,
+                                producto.id,
+                                producto.sku,
+                                parseInt(cant),
+                                producto.name,
+                                producto.price,
+                                producto.img,
+                                producto.stock,
+                                producto.oldprice,
+                                producto.notes,
+                                producto.cname,
+                                producto.check = "notsync",
+                                producto.select,
+                                producto.email,
+                                producto.smname,
+                                producto.timestamp,
+                                producto.ponumber,
+                                producto.total = localStorage.getItem("grndTotal")
+                            )
+                            console.log(parseInt(cant))
+                            $$('body')
+                                .css('opacity', '1');
+                        }, 100)
                     } else {
-                        app.dialog.alert('Oops! Something we wrong, try again later')
+                        app.dialog.alert('Only larger quantities are allowed to zero');
                     }
                 } else {
-                    app.dialog.alert('You can not add more of this product');
+                    app.dialog.alert('Oops! Something we wrong, try again later')
                 }
-            }
-        }
-        app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-            var curProd = _.find(cart.items, {
-                'id': id
-            })
-            console.log("search products");
-            if (undefined != curProd && curProd != null) {
-                if (curProd.cant < available) {
-                    curProd.cant = parseInt(curProd.cant + cant);
-                } else {
-                    app.dialog.alert('This product is currently out of stock');
-                }
-                $$('#prod_' + curProd.id)
-                    .val(curProd.cant);
             } else {
-                var timeandponumber = new Date()
-                    .getTime();
-                localStorage.setItem("timeandponumber", timeandponumber);
-                var timeandpo = localStorage.getItem("timeandponumber");
-                var prod = {
-                    cant: cant,
-                    check: check,
-                    cname: cname = localStorage.getItem("idMember"),
-                    email: email,
-                    id: id,
-                    img: img,
-                    name: name,
-                    notes: notes,
-                    oldprice: oldprice,
-                    ponumber: timeandpo,
-                    price: price,
-                    select: select,
-                    sku: sku,
-                    smname: smname = localStorage.getItem("idSalesMngr"),
-                    timestamp: timeandpo,
-                    total: localStorage.getItem("grndTotal")
-                }
-                cart.items.push(prod)
+                app.dialog.alert('You can not add more of this product');
             }
-            localStorage.setItem('cart', JSON.stringify(cart));
-            app.init();
-            app.getProducts();
-            app.updatePayForm();
         }
-    });
+    }
+    app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+        var curProd = _.find(cart.items, {
+            'id': id
+        })
+        console.log("search products");
+        if (undefined != curProd && curProd != null) {
+            if (curProd.cant < available) {
+                curProd.cant = parseInt(curProd.cant + cant);
+            } else {
+                app.dialog.alert('This product is currently out of stock');
+            }
+            $$('#prod_' + curProd.id)
+                .val(curProd.cant);
+        } else {
+            var timeandponumber = new Date()
+                .getTime();
+            localStorage.setItem("timeandponumber", timeandponumber);
+            var timeandpo = localStorage.getItem("timeandponumber");
+            var prod = {
+                cant: cant,
+                check: check,
+                cname: cname = localStorage.getItem("idMember"),
+                email: email,
+                id: id,
+                img: img,
+                name: name,
+                notes: notes,
+                oldprice: oldprice,
+                ponumber: timeandpo,
+                price: price,
+                select: select,
+                sku: sku,
+                smname: smname = localStorage.getItem("idSalesMngr"),
+                timestamp: timeandpo,
+                total: localStorage.getItem("grndTotal")
+            }
+            cart.items.push(prod)
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        app.init();
+        app.getProducts();
+        app.updatePayForm();
+    }
+});
 $$(document)
     .on('page:init', '.page[data-name="catalogc"]', function (e) {
         app.purchaseOrders();
@@ -480,20 +471,16 @@ app.thisItem = function (codeID) {
 
 
 $$(document).on('page:init', '.page[data-name="activepo"]', function (e) {
-
     alert('activepo');
 });
 app.purchaseOrders = function () {
-
     var operation = "A";
     var index_selected = -1;
     var txtClients = localStorage.getItem("txtClients");
     txtClients = JSON.parse(txtClients);
-
     if (txtClients == null) {
         txtClients = [];
     }
-
 
 
     $$("#frmCadastro").on("click", ".btn-submit-po", function () {
@@ -522,7 +509,6 @@ app.purchaseOrders = function () {
                 .val(cli.cid);
             $$("#txtDate")
                 .val(cli.date);
-
             $$("#txtItems")
                 .val(cli.items);
             $$("#txtNotes")
@@ -646,13 +632,12 @@ $$(document)
 $$(document)
     .on('page:init', '.page[data-name="catalog"]', function (e) {
         app.createProducts();
-      //  app.loadStore();
+        //  app.loadStore();
         app.preloader.show();
-        app.preloader.show();
-       /* setTimeout(function () {
+        setTimeout(function () {
             app.preloader.hide();
             app.loadStore();
-        }, 800);*/
+        }, 800);
         console.log("Catalog");
         app.addToMyCart = function (id) {
             if (!localStorage.getItem("idMember")) {
@@ -732,8 +717,6 @@ $$(document)
                 localStorage.setItem("timeandponumber", timeandponumber);
                 var timeandpo = localStorage.getItem("timeandponumber");
                 var prod = {
-
-
                     cant: cant,
                     check: check,
                     cname: cname = localStorage.getItem("idMember"),
@@ -743,7 +726,6 @@ $$(document)
                     name: name,
                     notes: notes,
                     oldprice: oldprice,
-
                     ponumber: timeandpo,
                     price: price,
                     select: select,
@@ -751,10 +733,6 @@ $$(document)
                     smname: smname = localStorage.getItem("idSalesMngr"),
                     timestamp: timeandpo,
                     total: localStorage.getItem("grndTotal")
-
-
-
-
                 }
                 cart.items.push(prod)
             }
@@ -766,56 +744,73 @@ $$(document)
     });
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
-   // console.log('Category');
-   
+    // console.log('Category');
+
 
     $$('#categories .category').on('click', function () {
         selectedCat = $$(this).attr("alt");
         Categorize(selectedCat);
-        
+
     });
 
 });
 
 
 var selectedCat;
-function Categorize(selectedCat){
-  console.log(selectedCat);
-  thisCat = selectedCat;
+function Categorize(selectedCat) {
+    console.log(selectedCat);
+    thisCat = selectedCat;
 }
 
 
-//app.loadStore = function () {}
-var business_paypal = '',
-    currency_icon = '₱';
-mockIdSalesMngr = '1111111111111';
-localStorage.setItem("myCurrency", currency_icon);
-localStorage.setItem("idSalesMngr", mockIdSalesMngr);
-'use strict';
-app.init = function () {
-    console.log("initializing...");
-    var total = 0,
-        items = 0
-    var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-        items: []
-    };
-    if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
-        _.forEach(cart.items, function (n, key) {
-            items = (items + n.cant)
-            total = total + (n.cant * n.price)
-        });
+app.loadStore = function () {
+    var business_paypal = '';
+    var currency_icon = '₱';
+    mockIdSalesMngr = '1111111111111';
+    localStorage.setItem("myCurrency", currency_icon);
+    localStorage.setItem("idSalesMngr", mockIdSalesMngr);
+    'use strict';
+    app.init = function () {
+        console.log("initializing...");
+        var total = 0,
+            items = 0
+        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+            items: []
+        };
+        if (undefined != cart.items && cart.items != null && cart.items != '' && cart.items.length > 0) {
+            _.forEach(cart.items, function (n, key) {
+                items = (items + n.cant)
+                total = total + (n.cant * n.price)
+            });
+        }
+        var total_Items = $$('#totalItems');
+        total_Items.text(items);
+        if (items == 0) {
+            $$(total_Items)
+                .hide();
+        } else {
+            $$(total_Items)
+                .show();
+        }
+        $$('.totalAmount')
+            .text(currency_icon + ' ' + total + ' USD');
     }
-    var total_Items = $$('#totalItems');
-    total_Items.text(items);
-    if (items == 0) {
-        $$(total_Items)
-            .hide();
-    } else {
-        $$(total_Items)
-            .show();
-    }
-    $$('.totalAmount')
-        .text(currency_icon + ' ' + total + ' USD');
+    app.pullProductData();
+}
+
+app.pullProductData = function () {
+    console.log("Pulling data...");
+    app.preloader.show();
+    // Perform Ajax request
+    app.request.get(base_url + '/public/api/products', function (data) {
+        // Hide preloader when Ajax request completed
+        // localStorage.setItem("products", data);
+
+        app.preloader.hide();
+        console.log(data);
+        console.log("Pulling data complete.");
+
+    });
 }
 app.createProducts = function () {
     console.log("create products");
@@ -824,7 +819,6 @@ app.createProducts = function () {
         sku: 'A0000001',
         name: 'Denim Shirt',
         cat: 'Sports Wear',
-        
         state: 'New',
         statecolor: 'red',
         size: '',
@@ -847,7 +841,6 @@ app.createProducts = function () {
         sku: 'A0000002',
         name: 'Drypers Mega Pack',
         cat: 'Baby',
-        
         state: 'Sale',
         statecolor: 'green',
         size: 'Large x 62 pcs',
@@ -870,7 +863,6 @@ app.createProducts = function () {
         sku: 'A0000003',
         name: 'Cool Shirt',
         cat: 'Out Wear',
-      
         state: '',
         statecolor: '',
         size: '',
@@ -893,7 +885,6 @@ app.createProducts = function () {
         sku: 'A0000004',
         name: '137 Degrees Iced Coffee Latte with Almond Milk Drink',
         cat: 'Coffee',
-      
         state: '',
         statecolor: '',
         size: '3 pcs x 180 ml',
@@ -916,7 +907,6 @@ app.createProducts = function () {
         sku: 'A0000005',
         name: 'Gingen Strong Ginger Formula Tea',
         cat: 'Tea',
-        
         state: 'Best Seller',
         size: '',
         statecolor: 'blue',
@@ -939,7 +929,6 @@ app.createProducts = function () {
         sku: 'A0000006',
         name: 'Cool Shirt',
         cat: 'Out Wear',
-        
         state: '',
         statecolor: '',
         size: '3 pcs x 180 ml',
@@ -958,8 +947,8 @@ app.createProducts = function () {
         ponumber: '',
         total: ''
     }],
-        wrapper2 = $$('.mystepper1');
-    wrapper = $$('#stepper_prod_1');
+        // wrapper2 = $$('.mystepper1');
+        wrapper = $$('#stepper_prod_1');
     content = '';
     oldpricing = '';
     for (var i = 0; i < products.length; i++) {
@@ -1085,8 +1074,8 @@ app.getProducts = function () {
     $$('.submitBtn')
         .hide();
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        },
+        items: []
+    },
         msg = '',
         wrapper = $$('.cart'),
         wrapper2 = $$('.cartmemberinfo'),
@@ -1134,8 +1123,8 @@ app.getProducts = function () {
 }
 app.updateItem = function (id, available) {
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        },
+        items: []
+    },
         curProd = _.find(cart.items, {
             'id': id
         })
@@ -1311,7 +1300,7 @@ btns.on("click", function () {
         .addClass("tab-link-active");
 })
 for (var i = 0; i < btns.length; i++) {
-    btns.on("click", function () {});
+    btns.on("click", function () { });
 }
 app.productsPage = function () {
     var activeSKU = sessionStorage.getItem("skuItem");
@@ -1371,12 +1360,10 @@ app.productsPage = function () {
     }
 }
 $$(document).on('DOMContentLoaded', function () {
-
     app.init();
     app.purchaseOrders();
     app.updatePayForm();
     app.getProducts();
-
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
 
