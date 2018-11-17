@@ -7,7 +7,10 @@
     <author email="support@phonegap.com" href="http://phonegap.com">
         PhoneGap Team
     </author>
+
+  
     <content src="index.html" />
+    <access origin="http://104.238.96.209/~project/joroni/super8/slim/" />
     <access origin="*" />
     <preference name="phonegap-version" value="cli-6.5.0" />
     <preference name="orientation" value="portrait" />
