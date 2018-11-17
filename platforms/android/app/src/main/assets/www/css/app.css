@@ -21,8 +21,12 @@ body.color-theme-s8,
 }
 
 
+.grad-blue-white {
+    background-image: linear-gradient(#FFF 60%, #7FBEFC);
+}
+
 .md body.color-theme-s8, .fab-buttons a, .md body.color-theme-s8 .fab>a {
-    background:#154A89 !important;
+    background:#154A89 ;
 }
 
 .md body.color-theme-s8 .stepper-input-wrap, .md body.color-theme-s8 .stepper-value {
@@ -51,15 +55,19 @@ body.color-theme-s8,
     color: #154A89;
   
 }
-.color-theme-s8{
-    background:#154A89 !important;
+.md body.color-theme-s8  .color-theme-s8{
+    background:#154A89;
+}
+
+.md body.color-theme-s8  .home .navbar {
+    background: #fff !important;
 }
 .parent {
     z-index: 200000;
 }
 
 div#thisList{
-    margin-top: 0 !important;
+    margin-top: 0 ;
 }
 
 
