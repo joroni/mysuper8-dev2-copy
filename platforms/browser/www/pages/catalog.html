@@ -49,15 +49,92 @@
   </div>
 </template>
 <script>
-  productlist = JSON.parse(localStorage.getItem("products"));
-  
+  //productlist = JSON.parse(localStorage.getItem("products"));
+  products_live=[
+  {
+    "id": 1,
+    "sku": "A0000001",
+    "name": "Denim Shirt2",
+    "cat": "Out Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 350,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 10,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  },
+  {
+    "id": 2,
+    "sku": "A0000002",
+    "name": "Denim Shirt40",
+    "cat": "Out Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 360,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 10,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  },
+  {
+    "id": 3,
+    "sku": "A0000003",
+    "name": "Denim Shirt",
+    "cat": "Sports Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 299,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 4,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  }
+];
+   
  
   return {
     data: function (e) {
       Categorize(selectedCat);
       return {
        // products: this.$root.products,
-       products:_.filter(productlist, function(item, index) {
+       products:_.filter([products_live], function(item, index) {
        //  console.log('----')
         return _.contains([selectedCat], item.cat);
         })

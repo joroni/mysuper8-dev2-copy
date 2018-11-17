@@ -1,8 +1,13 @@
+'use strict';
 var $$ = Dom7;
  
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+//var business_paypal = '';
+//var currency = '₱';
+//var mockIdSalesMngr = '1111111111111';
+//var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+var base_url ="http://localhost/slim/";
 /*
 var products = localStorage.getItem("products");*/
 var app = new Framework7({
@@ -13,13 +18,18 @@ var app = new Framework7({
     pushState: true,
     data: function () {
         return {
+            mystore:{
+                business_paypal:'',
+                currency : '₱',
+                mockIdSalesMngr : '1111111111111',
+                base_url:'http://localhost/slim/',
+            },
             user: {
                 firstName: 'John',
                 lastName: 'Doe',
             },
             productcs: JSON.parse(orderItems),
-            //products: JSON.stringify(localStorage.getItem("jsonproducts")),
-            products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
+            products: JSON.parse(localStorage.getItem("jsonproducts")),
            /* productsss: [{
                 id: '1',
                 sku: 'A0000001',
@@ -187,15 +197,15 @@ $$('#my-login-screen .login-button')
 $$('a.getsku')
     .on('click', function () {
         sessionStorage.setItem("skuItem", ThisSKU);
-        app.dialog.alert(selectedCat);
+        //app.dialog.alert(selectedCat);
     });
 
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-    app.preloader.show();
+   /* app.preloader.show();
     setTimeout(function (selectedCat) {
         selectedCat = localStorage.getItem("category");
         app.preloader.hide();
-    }, 2000);
+    }, 2000);*/
 
     // setTimeout(function () {}, 800);
     console.log("Catalog");
@@ -287,7 +297,7 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
                 price: price,
                 select: select,
                 sku: sku,
-                smname: smname = localStorage.getItem("idSalesMngr"),
+                smname: localStorage.getItem("idSalesMngr"),
                 timestamp: timeandpo,
                 total: localStorage.getItem("grndTotal")
             }
@@ -498,7 +508,7 @@ $$(document)
         app.preloader.show();
         setTimeout(function () {
             app.preloader.hide();
-            app.loadStore();
+           // app.loadStore();
         }, 800);
         console.log("Catalog");
         app.addToMyCart = function (id) {
@@ -592,7 +602,7 @@ $$(document)
                     price: price,
                     select: select,
                     sku: sku,
-                    smname: smname = localStorage.getItem("idSalesMngr"),
+                    smname: localStorage.getItem("idSalesMngr"),
                     timestamp: timeandpo,
                     total: localStorage.getItem("grndTotal")
                 }
@@ -612,6 +622,8 @@ $$(document).on('page:init', '.page[data-name="category"]', function (e) {
     $$('#categories .category').on('click', function () {
         selectedCat = $$(this).attr("alt");
         Categorize(selectedCat);
+        $$("input#MyCategory").val(selectedCat);
+        app.router.navigate('/catalog/'+selectedCat+'/');
 
     });
 
@@ -621,20 +633,27 @@ $$(document).on('page:init', '.page[data-name="category"]', function (e) {
 var selectedCat;
 function Categorize(selectedCat) {
     console.log(selectedCat);
-    thisCat = selectedCat;
+  //  thisCat = selectedCat;
 }
 
 
 app.loadStore = function () {
-    var business_paypal = '';
-    var currency_icon = '₱';
-    mockIdSalesMngr = '1111111111111';
-    localStorage.setItem("myCurrency", currency_icon);
-    localStorage.setItem("idSalesMngr", mockIdSalesMngr);
-    'use strict';
+   
+    //localStorage.setItem("myCurrency", currency);
+    //localStorage.setItem("idSalesMngr", mockIdSalesMngr);
+    //currency = localStorage.getItem("currency");
+    //mockIdSalesMngr = localStorage.getItem("mockIdSalesMngr");
+    
+    
+   
+}
+
+
+
     app.init = function () {
         console.log("initializing...");
-        var total = 0,
+          app.loadStore();
+       var total = 0,
             items = 0
         var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
             items: []
@@ -654,11 +673,9 @@ app.loadStore = function () {
             $$(total_Items)
                 .show();
         }
-        $$('.totalAmount')
-            .text(currency_icon + ' ' + total + ' USD');
+       // $$('.totalAmount')
+         //   .text(currency + ' ' + total + ' USD');
     }
-   
-}
 
 app.pullProductJSONData = function () {
     console.log("Pulling raw json data...");
@@ -692,8 +709,91 @@ app.pullProductData = function () {
 }
 app.createProducts = function () {
     console.log("create products");
+    var productLive=[
+        {
+          "id": 1,
+          "sku": "A0000001",
+          "name": "Denim Shirt2",
+          "cat": "Out Wear",
+          "state": "New",
+          "statecolor": "green",
+          "size": "",
+          "img": "12.jpg",
+          "oldprice": "",
+          "price": 350,
+          "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+          "stock": 10,
+          "cname": "",
+          "check": "",
+          "select": "",
+          "notes": "",
+          "email": "",
+          "smname": "",
+          "timestamp": "",
+          "ponumber": "",
+          "total": "",
+          "currency": "₱",
+          "merchant": "Super 8"
+        },
+        {
+          "id": 2,
+          "sku": "A0000002",
+          "name": "Denim Shirt40",
+          "cat": "Out Wear",
+          "state": "New",
+          "statecolor": "green",
+          "size": "",
+          "img": "12.jpg",
+          "oldprice": "",
+          "price": 360,
+          "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+          "stock": 10,
+          "cname": "",
+          "check": "",
+          "select": "",
+          "notes": "",
+          "email": "",
+          "smname": "",
+          "timestamp": "",
+          "ponumber": "",
+          "total": "",
+          "currency": "₱",
+          "merchant": "Super 8"
+        },
+        {
+          "id": 3,
+          "sku": "A0000003",
+          "name": "Denim Shirt",
+          "cat": "Sports Wear",
+          "state": "New",
+          "statecolor": "green",
+          "size": "",
+          "img": "12.jpg",
+          "oldprice": "",
+          "price": 299,
+          "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+          "stock": 4,
+          "cname": "",
+          "check": "",
+          "select": "",
+          "notes": "",
+          "email": "",
+          "smname": "",
+          "timestamp": "",
+          "ponumber": "",
+          "total": "",
+          "currency": "₱",
+          "merchant": "Super 8"
+        }
+      ];
+                
+  localStorage.setItem("products".  productLive);
+}
+ /* 
+app.createProducts = function () {
+    console.log("create products");
     var products = JSON.parse(localStorage.getItem("products")),
-   /* var products = [{
+  var products = [{
         id: 1,
         sku: 'A0000001',
         name: 'Denim Shirt',
@@ -825,7 +925,7 @@ app.createProducts = function () {
         timestamp: '',
         ponumber: '',
         total: ''
-    }],*/
+    }],
         // wrapper2 = $$('.mystepper1');
         wrapper = $$('#stepper_prod_1');
     content = '';
@@ -833,7 +933,7 @@ app.createProducts = function () {
     for (var i = 0; i < products.length; i++) {
         if (products[i].stock > 0) {
             if (products[i].oldprice != 0 || products[i].oldprice != '') {
-                oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
+                oldpricing = currency + '' + products[i].oldprice.toFixed(2)
             } else {
                 oldpricing = '';
             }
@@ -847,14 +947,14 @@ app.createProducts = function () {
     }
     localStorage.setItem('products', JSON.stringify(products))
 }
-
+*/
 function callFunction(func) {
     var newValue = func();
     console.log(newValue);
 }
 
 
-
+/*
 app.addtoCart = function (id) {
     if (!localStorage.getItem("idMember")) {
         alert("Please select a customer.");
@@ -908,8 +1008,8 @@ app.addtoCart = function (id) {
             alert('You can not add more of this product');
         }
     }
-}
-app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
+}*/
+app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber, currency) {
     var curProd = _.find(cart.items, {
         'id': id
     })
@@ -927,7 +1027,7 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
             sku: sku,
             cant: cant,
             name: name,
-            price: price,
+            price: price, 
             img: img,
             available: available,
             oldprice: oldprice,
@@ -940,6 +1040,7 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
             timestamp: timestamp,
             total: localStorage.getItem("grndTotal"),
             ponumber: ponumber,
+            currency:currency,
         }
         cart.items.push(prod)
     }
@@ -978,7 +1079,7 @@ app.getProducts = function () {
         _.forEach(cart.items, function (n, key) {
             var oldpricing = '';
             if (n.oldprice != 0 || n.oldprice != '') {
-                var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+                var oldpricing = n.currency + '' + n.oldprice.toFixed(2)
             } else {
                 var oldpricing = '';
             }
@@ -987,12 +1088,12 @@ app.getProducts = function () {
             items += '<td><span class="qant">' + n.cant + '</span></td>'
             items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
             items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
-            items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
+            items += '<p class="price right">' + n.currency + '' + n.price.toFixed(2) + '</p></td>'
             items += '</tr>';
             $$('#prod_' + n.id)
                 .val(n.cant);
         });
-        items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
+        items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3"> ₱ ' + total.toFixed(2) + ' </td></tr>'
         wrapper.html(items);
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
@@ -1245,7 +1346,7 @@ $$(document).on('DOMContentLoaded', function () {
     app.getProducts();
     app.pullProductData();
     app.pullProductJSONData();
-    currency_icon = '₱';
-    localStorage.setItem("myCurrency", currency_icon);
+    //currency = '₱';
+    //localStorage.setItem("myCurrency", currency);
 
 });

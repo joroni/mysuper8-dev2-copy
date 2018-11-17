@@ -59,8 +59,18 @@ body.color-theme-s8,
     background:#154A89;
 }
 
+
+.md body.color-theme-s8  .button.button-active, .md body.color-theme-s8 .button.button-fill, .md body.color-theme-s8 .button.button-fill-md, .md body.color-theme-s8 .button.tab-link-active{
+    background:#154A89;
+}
+
 .md body.color-theme-s8  .home .navbar {
     background: #fff !important;
+}
+
+
+.md body.color-theme-s8 .cart .title, .md body.color-theme-s8.cartmemberinfo .title {
+    color: #154A89;
 }
 .parent {
     z-index: 200000;

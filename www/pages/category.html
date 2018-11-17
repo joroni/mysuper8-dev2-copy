@@ -16,8 +16,9 @@
           <ul id="categories">
             {{#each products}}
             
-                <li><a class="category link" alt="{{cat}}" href="/catalog/{{cat}}/">{{cat}}</a></li>
-              <!--  <li><a class="category link" alt="{{cat}}" href="/page-loader-template7/{{cat}}/">{{cat}}</a></li>-->
+                <li><a class="category link" alt="{{cat}}" href="#">{{cat}}</a></li>
+                <!--<li><a class="category link" alt="{{cat}}" href="/catalog/{{cat}}/">{{cat}}</a></li>-->
+                <!--  <li><a class="category link" alt="{{cat}}" href="/page-loader-template7/{{cat}}/">{{cat}}</a></li>-->
 
             {{/each}}
           </ul>
@@ -28,12 +29,90 @@
 
 <script>
     
-productlist = JSON.parse(localStorage.getItem("products"));
+//productlist = JSON.parse(localStorage.getItem("products"));
+products_live=[
+  {
+    "id": 1,
+    "sku": "A0000001",
+    "name": "Denim Shirt2",
+    "cat": "Out Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 350,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 10,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  },
+  {
+    "id": 2,
+    "sku": "A0000002",
+    "name": "Denim Shirt40",
+    "cat": "Out Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 360,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 10,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  },
+  {
+    "id": 3,
+    "sku": "A0000003",
+    "name": "Denim Shirt",
+    "cat": "Sports Wear",
+    "state": "New",
+    "statecolor": "green",
+    "size": "",
+    "img": "12.jpg",
+    "oldprice": "",
+    "price": 299,
+    "desc": "Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time",
+    "stock": 4,
+    "cname": "",
+    "check": "",
+    "select": "",
+    "notes": "",
+    "email": "",
+    "smname": "",
+    "timestamp": "",
+    "ponumber": "",
+    "total": "",
+    "currency": "₱",
+    "merchant": "Super 8"
+  }
+];
+           
   return {
     data: function () {
       return {
       //  products: _.uniq( this.$root.products, 'cat'),
-        products: _.uniq( productlist, 'cat'),
+        products: _.uniq( products_live, 'cat'),
         
       };
     }
