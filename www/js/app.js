@@ -2,7 +2,7 @@ var $$ = Dom7;
  
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-var base_url = "http://localhost/slim";
+var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
 /*
 var products = localStorage.getItem("products");*/
 var app = new Framework7({
