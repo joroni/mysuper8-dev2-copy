@@ -30,10 +30,13 @@ routes = [
   },
   {
     path: '/category/',
+    cache:false,
     componentUrl: './pages/category.html',
   },
   {
     path: '/catalog/:cat/',
+    name:'catalog',
+    cache:false,
     componentUrl: './pages/catalog.html',
   },
   {
@@ -58,7 +61,8 @@ routes = [
   },
   // Page Loaders & Router
   {
-    path: '/page-loader-template7/:user/:userId/:posts/:postId/',
+    //path: '/page-loader-template7/:user/:userId/:posts/:postId/',
+    path: '/page-loader-template7/:cat/',
     templateUrl: './pages/page-loader-template7.html',
   },
   {

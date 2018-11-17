@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="category">
+  <div class="page" data-name="category" id='cats'>
     <div class="navbar">
       <div class="navbar-inner sliding">
         <div class="left">
@@ -15,7 +15,9 @@
       <div class="list links-list">
           <ul id="categories">
             {{#each products}}
-                <li><a class="category" alt="{{cat}}" href="/catalog/{{cat}}/">{{cat}}</a></li>
+                <li><a class="category link" alt="{{cat}}" href="#">{{cat}}</a></li>
+              <!--  <li><a class="category link" alt="{{cat}}" href="/page-loader-template7/{{cat}}/">{{cat}}</a></li>-->
+
             {{/each}}
           </ul>
         </div>
