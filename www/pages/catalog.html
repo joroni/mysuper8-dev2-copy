@@ -49,17 +49,17 @@
   </div>
 </template>
 <script>
+  productlist = JSON.parse(localStorage.getItem("products"));
   
-  // Categorize(localStorage.getItem('clicked'));
+ 
   return {
     data: function (e) {
-
-     thisCat =  localStorage.getItem('clicked');
+      Categorize(selectedCat);
       return {
-        //products: this.$root.products,
-        products:_.filter(this.$root.products, function(item, index) {
+       // products: this.$root.products,
+       products:_.filter(productlist, function(item, index) {
        //  console.log('----')
-        return _.contains([localStorage.getItem('clicked')], item.cat);
+        return _.contains([selectedCat], item.cat);
         })
       };
     }
