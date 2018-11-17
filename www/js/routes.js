@@ -35,7 +35,7 @@ routes = [
   },
   {
     path: '/catalog/:cat/',
-    name:'catalog',
+   // name:'catalog',
     cache:false,
     componentUrl: './pages/catalog.html',
   },
