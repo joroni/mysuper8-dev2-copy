@@ -8,7 +8,7 @@
         PhoneGap Team
     </author>
     <content src="index.html" />
-    <access origin="http://104.238.96.209/~project/joroni/super8/slim/" />
+    <access origin="http://domain.com/public/auth/app-login" />
     <access origin="*" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="phonegap-version" value="cli-6.5.0" />
