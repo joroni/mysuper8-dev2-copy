@@ -381,7 +381,7 @@ $$(document)
             } else {
                 console.log("continue shopping");
                 //  console.log("add to cart");
-                var l = $$('.prod_' + id);
+                var l = $$('#prod_' + id);
                var products = JSON.parse(localStorage.getItem('products')),
                     producto = _.find(products, {
                         'id': id
@@ -576,6 +576,8 @@ var productsList = "";
 var products = "";
 app.createProducts = function (products) {
     console.log("create products");
+    app.pullProductData();
+    app.pullProductJSONData();
     products = JSON.parse(localStorage.getItem("products"));
   //  products=productsList;
 }
@@ -587,100 +589,6 @@ function callFunction(func) {
 }
 
 
-/*
-app.addtoCart = function (id) {
-    if (!localStorage.getItem("idMember")) {
-        alert("Please select a customer.");
-        app.router.navigate('/catalogb/');
-        return false;
-    } else {
-        console.log("continue shopping");
-        var l = $$('.prod_' + id);
-        var products = JSON.parse(localStorage.getItem('products')),
-            producto = _.find(products, {
-                'id': id
-            }),
-            cant = 1;
-        $$('body').css('opacity', '0.5');
-        if (cant <= producto.stock) {
-            if (undefined != producto) {
-                if (cant > 0) {
-                    setTimeout(function () {
-                        var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-                            items: []
-                        };
-                        app.searchProd(cart,
-                            producto.id,
-                            producto.sku,
-                            parseInt(cant),
-                            producto.name,
-                            producto.price,
-                            producto.img,
-                            producto.stock,
-                            producto.oldprice,
-                            producto.notes,
-                            producto.cname,
-                            producto.check = "notsync",
-                            producto.select,
-                            producto.email,
-                            producto.smname,
-                            producto.timestamp,
-                            producto.ponumber,
-                            producto.total = localStorage.getItem("grndTotal")
-                        )
-                        console.log(parseInt(cant))
-                        $$('body').css('opacity', '1');
-                    }, 100)
-                } else {
-                    alert('Only larger quantities are allowed to zero');
-                }
-            } else {
-                alert('Oops! Something we wrong, try again later')
-            }
-        } else {
-            alert('You can not add more of this product');
-        }
-    }
-}
-app.searchProd = function (cart, id, sku, cant, name, price, img, available, oldprice, cname, smname, check, select, notes, email, timestamp, total, ponumber) {
-    var curProd = _.find(cart.items, {
-        'id': id
-    })
-    console.log("search products");
-    if (undefined != curProd && curProd != null) {
-        if (curProd.cant < available) {
-            curProd.cant = parseInt(curProd.cant + cant)
-        } else {
-            alert('This product is currently out of stock')
-        }
-        $$('#prod_' + curProd.id).val(curProd.cant);
-    } else {
-        var prod = {
-            id: id,
-            sku: sku,
-            cant: cant,
-            name: name,
-            price: price,
-            img: img,
-            available: available,
-            oldprice: oldprice,
-            cname: cname,
-            smname: smname,
-            check: check,
-            select: select,
-            notes: notes,
-            email: email,
-            timestamp: timestamp,
-            total: localStorage.getItem("grndTotal"),
-            ponumber: ponumber,
-        }
-        cart.items.push(prod)
-    }
-    localStorage.setItem('cart', JSON.stringify(cart));
-    app.init();
-    app.getProducts();
-    app.updatePayForm();
-}*/
 app.getProducts = function () {
     console.log("get products");
     $$('.submitBtn')
@@ -966,7 +874,7 @@ app.productsPage = function () {
             '</button>');
         $$("#footerBtns").html('<div class="row"><div class="btn-group" role="group" aria-label="Basic">' +
             '<button type="button" class="btn btn-success manage-qtty btn-number h-40 waves-effect waves-light" onclick="app.updateItem(' + id + ',' + stock + ')" data-type="minus"><i class="material-icons">remove</i></button>' +
-            '<input type="number"id="prod_' + id + '" readonly="" name="quant[' + id + ']" class="form-control input-number quantity manage-qtty h-40" value="0" min="0" max="100" style="height:40px; width:80px;">' +
+            '<input type="number" id="prod_' + id + '" readonly="" name="quant[' + id + ']" class="form-control input-number quantity manage-qtty h-40" value="0" min="0" max="100" style="height:40px; width:80px;">' +
             '<button type="button" class="btn btn-success btn-number waves-effect h-40 submit ladda-button waves-light prod-' + id + '" data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + id + ');"><i class="material-icons">add</i></button>' +
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
     }

@@ -233,7 +233,8 @@ function memberList() {
                     var fullname = member.FNAMES + ' ' + member.LNAMES;
 
                    // lisHtml += '<li><a href="/customerinfo/" data-fname="'+fname+'" data-lname="'+lname+'" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
-                    lisHtml +='<li>'+
+                    lisHtml +=' <li class="swipeout">'+
+                    '<div class="swipeout-content" data-id="'+id+'">'+
                     '<a href="/customerinfo/" data-fname="'+fname+'" data-lname="'+lname+'" onclick="selectMember(' + id + ')">'+
                     '<div class="item-content">'+
                     '<div class="item-media"><i class="customers-icons f7-icons">person</i></div>'+
@@ -243,6 +244,13 @@ function memberList() {
                      
                     '</div>'+
                     '</a>'+
+                 
+                  '<div data-id="'+id+'" class="swipeout-actions-right" style="padding-top:0px; padding-left:20px;">'+
+                  '<p class="row">'+
+                  '<button class="col button btn-editar button-big button-outline">Edit</button>'+
+                  '<button class="col button btn-eliminar button-big button-outline">Delete</button>'+
+                '</p>'+
+                  '</div>'+
                   '</li>';
                     // myJson.push({ member: member,  fullname: fullname, FNAMES: member.FNAMES, LNAMES:member.LNAMES, ID: member.ID,});
                  //  myJson.push({member});
