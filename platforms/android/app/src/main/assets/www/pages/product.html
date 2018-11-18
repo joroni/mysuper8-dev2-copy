@@ -94,11 +94,13 @@
   
   </template>
   <script>
+     productlist = JSON.parse(localStorage.getItem("jsonproducts"));
     return {
       data: function () {
         var productId = this.$route.params.id;
         var currentProduct;
-        this.$root.products.forEach(function (product) {
+      //  this.$root.products.forEach(function (product) {
+        productlist.forEach(function (product) {
           if (product.id === productId) {
             currentProduct = product;
           }
