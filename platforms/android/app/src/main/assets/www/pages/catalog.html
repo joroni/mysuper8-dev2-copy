@@ -51,11 +51,12 @@
 </template>
 <script>
  productlist = JSON.parse(localStorage.getItem("products"));
+ console.log(productlist);
  Categorize(selectedCat)
  //mycat= $$("#MyCategory").val();
   return {
     data: function (e) {
-     selectedCategory = $$(this).val();
+    // selectedCategory = $$(this).val();
       return {
        // products: this.$root.products,
        products:_.filter(productlist, function(item, index) {
