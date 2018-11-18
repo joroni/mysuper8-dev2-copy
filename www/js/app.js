@@ -2,8 +2,8 @@ var $$ = Dom7;
 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-// var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
-var base_url = "http://localhost/slim";
+ var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+//var base_url = "http://localhost/slim";
 var currency_icon = '₱';
 $$(".button").addClass("button-big");
 /*
@@ -543,7 +543,7 @@ app.pullProductJSONData = function () {
     app.preloader.show();
     // Perform Ajax request
     //app.request.get(base_url + '/public/api/jsonproducts', function (data) {
-        app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/jsonproducts.json', function(data){
+        app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function(data){
         // Hide preloader when Ajax request completed
         localStorage.setItem("jsonproducts", data);
 
@@ -559,9 +559,9 @@ app.pullProductData = function () {
     console.log("Pulling data...");
     app.preloader.show();
     // Perform Ajax request
-    app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
+ //   app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
       
-    //app.request.get(base_url + '/public/api/products', function (data) {
+    app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("products", data);
         
