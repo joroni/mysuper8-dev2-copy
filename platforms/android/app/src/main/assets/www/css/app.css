@@ -71,8 +71,8 @@ body.color-theme-s8,
     color: #fff;
 }
 
-.md body.color-theme-s8 .navbar .title {
-    color: #fff;
+.md body.color-theme-s8 .navbar .title, .md body.color-theme-s8 .navbar a.link  {
+    color: #fff !important;
   
 }
 
