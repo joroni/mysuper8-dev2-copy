@@ -27,6 +27,7 @@
                   </div>
                   <!--<truediv class="item-subtitle"><a href=""><span class="mybadge badge {{statecolor}} mr-1">{{state}}</span></a></div>-->
                   <div class="item-text">{{desc}}</div>
+                  <p>{{cat}}:</p>
                 </div>
               </a>
               <div id="stepper_prod_{{id}}" data-id="{{id}}" class="myStepper_{{id}} swipeout-actions-right">
@@ -36,7 +37,7 @@
                     <input type="number" id="prod_{{id}}" readonly name="quant[{{id}}]" class="form-control input-number quantity manage-qtty" value="0" min="0" max="100">
                   </div>
                  <!-- <div class="stepper-button-plus prod_{{id}}" onclick="app.addToCart('{{id}}')"></div>-->
-                 <div class="stepper-button-plus prod_{{id}}" data-id="plus_{{id}}" onclick="app.addToMyCart({{id}})"></div>
+                 <div class="stepper-button-plus prod_{{id}}" data-id="plus_{{id}}" onclick="app.addToMyCart('{{id}}')"></div>
                 </div>
               </div>
             
@@ -49,17 +50,16 @@
   </div>
 </template>
 <script>
-  productlist = JSON.parse(localStorage.getItem("products"));
-  
- 
+ productlist = JSON.parse(localStorage.getItem("products"));
+ mycat= $$("#MyCategory").val();
   return {
     data: function (e) {
-      Categorize(selectedCat);
+     selectedCategory = $$(this).val();
       return {
        // products: this.$root.products,
        products:_.filter(productlist, function(item, index) {
        //  console.log('----')
-        return _.contains([selectedCat], item.cat);
+        return _.contains([mycat], item.cat);
         })
       };
     }

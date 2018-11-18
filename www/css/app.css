@@ -66,6 +66,15 @@ body.color-theme-s8,
     z-index: 200000;
 }
 
+.md body.color-theme-s8 .button.button-active, .md body.color-theme-s8  .button.button-fill, .md body.color-theme-s8  .button.button-fill-md, .md body.color-theme-s8 .button.tab-link-active {
+    background-color: #154A89;
+    color: #fff;
+}
+
+.md body.color-theme-s8  .title {
+    color: #154A89;
+  
+}
 div#thisList{
     margin-top: 0 ;
 }

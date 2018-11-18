@@ -3,6 +3,8 @@ var $$ = Dom7;
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
 var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+var currency_icon = '₱';
+$$(".button").addClass("button-big");
 /*
 var products = localStorage.getItem("products");*/
 var app = new Framework7({
@@ -191,11 +193,11 @@ $$('a.getsku')
     });
 
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-    app.preloader.show();
+   /* app.preloader.show();
     setTimeout(function (selectedCat) {
         selectedCat = localStorage.getItem("category");
         app.preloader.hide();
-    }, 2000);
+    }, 2000);*/
 
     // setTimeout(function () {}, 800);
     console.log("Catalog");
@@ -611,7 +613,10 @@ $$(document).on('page:init', '.page[data-name="category"]', function (e) {
 
     $$('#categories .category').on('click', function () {
         selectedCat = $$(this).attr("alt");
-        Categorize(selectedCat);
+        $$("#MyCategory").val(selectedCat);
+        Categorize(selectedCat);                                                                                                                                                     
+        app.router.navigate('/catalog/'+selectedCat+'/');
+      
 
     });
 
@@ -621,15 +626,15 @@ $$(document).on('page:init', '.page[data-name="category"]', function (e) {
 var selectedCat;
 function Categorize(selectedCat) {
     console.log(selectedCat);
-    thisCat = selectedCat;
+    
 }
 
 
 app.loadStore = function () {
     var business_paypal = '';
-    var currency_icon = '₱';
+   
     mockIdSalesMngr = '1111111111111';
-    localStorage.setItem("myCurrency", currency_icon);
+    //localStorage.setItem("myCurrency", currency_icon);
     localStorage.setItem("idSalesMngr", mockIdSalesMngr);
     'use strict';
     app.init = function () {
@@ -682,7 +687,7 @@ app.pullProductData = function () {
     // Perform Ajax request
     app.request.get(base_url + '/public/api/products', function (data) {
         // Hide preloader when Ajax request completed
-        // localStorage.setItem("products", data);
+        localStorage.setItem("products", data);
 
         app.preloader.hide();
         console.log(data);

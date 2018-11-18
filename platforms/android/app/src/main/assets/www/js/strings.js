@@ -3,8 +3,6 @@ var $$ = Dom7;
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
 var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
-var currency_icon = '₱';
-$$(".button").addClass("button-big");
 /*
 var products = localStorage.getItem("products");*/
 var app = new Framework7({
@@ -632,9 +630,9 @@ function Categorize(selectedCat) {
 
 app.loadStore = function () {
     var business_paypal = '';
-   
+    var currency_icon = '₱';
     mockIdSalesMngr = '1111111111111';
-    //localStorage.setItem("myCurrency", currency_icon);
+    localStorage.setItem("myCurrency", currency_icon);
     localStorage.setItem("idSalesMngr", mockIdSalesMngr);
     'use strict';
     app.init = function () {
