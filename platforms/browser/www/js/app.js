@@ -2,7 +2,8 @@ var $$ = Dom7;
  
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+// var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+var base_url = "http://localhost/slim";
 var currency_icon = '₱';
 $$(".button").addClass("button-big");
 /*
@@ -510,8 +511,8 @@ $$(document)
                 return false;
             } else {
                 console.log("continue shopping");
-                console.log("add to cart");
-                var l = $$('.prod-' + id);
+              //  console.log("add to cart");
+                var l = $$('.prod_' + id);
                 var products = JSON.parse(localStorage.getItem('products')),
                     producto = _.find(products, {
                         'id': id
@@ -835,7 +836,7 @@ app.createProducts = function () {
         wrapper = $$('#stepper_prod_1');
     content = '';
     oldpricing = '';
-    for (var i = 0; i < products.length; i++) {
+   /* for (var i = 0; i < products.length; i++) {
         if (products[i].stock > 0) {
             if (products[i].oldprice != 0 || products[i].oldprice != '') {
                 oldpricing = currency_icon + '' + products[i].oldprice.toFixed(2)
@@ -850,7 +851,7 @@ app.createProducts = function () {
             content += '</div>'
         }
     }
-    localStorage.setItem('products', JSON.stringify(products))
+    localStorage.setItem('products', JSON.stringify(products))*/
 }
 
 function callFunction(func) {
@@ -859,7 +860,7 @@ function callFunction(func) {
 }
 
 
-
+/*
 app.addtoCart = function (id) {
     if (!localStorage.getItem("idMember")) {
         alert("Please select a customer.");
@@ -952,7 +953,7 @@ app.searchProd = function (cart, id, sku, cant, name, price, img, available, old
     app.init();
     app.getProducts();
     app.updatePayForm();
-}
+}*/
 app.getProducts = function () {
     console.log("get products");
     $$('.submitBtn')

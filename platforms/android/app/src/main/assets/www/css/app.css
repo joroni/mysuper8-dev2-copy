@@ -71,7 +71,12 @@ body.color-theme-s8,
     color: #fff;
 }
 
-.md body.color-theme-s8  .title {
+.md body.color-theme-s8 .navbar .title {
+    color: #fff;
+  
+}
+
+.md body.color-theme-s8 #cartInfo .title, .md body.color-theme-s8 .cart .title {
     color: #154A89;
   
 }

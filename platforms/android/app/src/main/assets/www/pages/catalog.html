@@ -27,7 +27,7 @@
                   </div>
                   <!--<truediv class="item-subtitle"><a href=""><span class="mybadge badge {{statecolor}} mr-1">{{state}}</span></a></div>-->
                   <div class="item-text">{{desc}}</div>
-                  <p>{{cat}}:</p>
+                  <p><small>{{cat}}</small></p>
                 </div>
               </a>
               <div id="stepper_prod_{{id}}" data-id="{{id}}" class="myStepper_{{id}} swipeout-actions-right">
@@ -51,7 +51,8 @@
 </template>
 <script>
  productlist = JSON.parse(localStorage.getItem("products"));
- mycat= $$("#MyCategory").val();
+ Categorize(selectedCat)
+ //mycat= $$("#MyCategory").val();
   return {
     data: function (e) {
      selectedCategory = $$(this).val();
@@ -59,7 +60,7 @@
        // products: this.$root.products,
        products:_.filter(productlist, function(item, index) {
        //  console.log('----')
-        return _.contains([mycat], item.cat);
+        return _.contains([selectedCat], item.cat);
         })
       };
     }
