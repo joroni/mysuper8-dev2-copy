@@ -22,7 +22,7 @@ var app = new Framework7({
             },
             productcs: JSON.parse(orderItems),
             products: JSON.parse(localStorage.getItem("jsonproducts")),
-           // products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","desc":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
+           // products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
            
         };
     },
@@ -847,7 +847,7 @@ app.productsPage = function () {
             oldpricing = '';
         }
         var cat = product.cat;
-        var desc = product.desc;
+        var descr = product.descr;
         var id = product.id;
         var img = product.img;
         var name = product.name;
@@ -867,7 +867,7 @@ app.productsPage = function () {
             '<del>' + oldpricing + '</del>' +
             '</span>' +
             '<span>' + currency + '' + price + '</span>')
-        $$("#thisDesc").html(desc);
+        $$("#thisDesc").html(descr);
         $$("#thisAddCart").html('<input type="number" value="1" id="prod_' + id + '" readonly name="quant[' + id + ']"  aria-label="Search" class="form-control" style="width: 100px">' +
             '<button class="btn btn-primary btn-md my-0 btn-number waves-effect  submit ladda-button waves-light" type="button"  onclick="app.addtoCart(' + id + ');">Add to cart' +
             '<i class="fa fa-shopping-cart ml-1"></i>' +
@@ -878,6 +878,7 @@ app.productsPage = function () {
             '<button type="button" class="btn btn-success btn-number waves-effect h-40 submit ladda-button waves-light prod-' + id + '" data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + id + ');"><i class="material-icons">add</i></button>' +
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
     }
+    
 }
 $$(document).on('DOMContentLoaded', function () {
     app.init();

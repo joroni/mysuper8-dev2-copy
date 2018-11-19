@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.phonegap.helloworld;
+package org.apache.cordova.myApp;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
