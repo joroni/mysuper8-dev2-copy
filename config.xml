@@ -1,11 +1,11 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
-<widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="org.apache.cordova.myApp" version="1.0.0">
    <name>Super 8 Retailing</name>
    <description>A sample Apache Cordova application that responds to the deviceready event.</description>
    <author email="dev@cordova.apache.org" href="http://cordova.io">Apache Cordova Team</author>
    <content src="index.html" />
    <access origin="*" />
-   <preference name="phonegap-version" value="cli-6.5.0" />
    <allow-intent href="http://*/*" />
    <allow-intent href="https://*/*" />
    <allow-intent href="tel:*" />
