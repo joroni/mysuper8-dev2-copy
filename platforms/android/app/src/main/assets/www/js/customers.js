@@ -234,8 +234,8 @@ function memberList() {
 
                    // lisHtml += '<li><a href="/customerinfo/" data-fname="'+fname+'" data-lname="'+lname+'" onclick="selectMember(' + id + ')">' + fullname + '</a></li>';
                     lisHtml +=' <li class="swipeout">'+
-                    '<div class="swipeout-content" data-id="'+id+'">'+
-                    '<a href="/customerinfo/" data-fname="'+fname+'" data-lname="'+lname+'" onclick="selectMember(' + id + ')">'+
+                    '<div class="swipeout-content">'+
+                    '<a href="/customerinfo/" datalink-id="'+id+'" data-fname="'+fname+'" data-lname="'+lname+'" onclick="selectMember(' + id + ')">'+
                     '<div class="item-content">'+
                     '<div class="item-media"><i class="customers-icons f7-icons">person</i></div>'+
                       '<div class="item-inner">'+
@@ -245,10 +245,10 @@ function memberList() {
                     '</div>'+
                     '</a>'+
                  
-                  '<div data-id="'+id+'" class="swipeout-actions-right" style="padding-top:0px; padding-left:20px;">'+
+                  '<div  class="swipeout-actions-right" style="padding-top:0px; padding-left:20px;">'+
                   '<p class="row">'+
-                  '<button class="col button btn-editar button-big button-outline">Edit</button>'+
-                  '<button class="col button btn-eliminar button-big button-outline">Delete</button>'+
+                  '<a href="#" class="btn-editar">Edit</a>'+
+                  '<a href="#" data-id="'+id+'" class="swipeout-delete btn-eliminar" style="color:#fff;">Delete</a>'+
                 '</p>'+
                   '</div>'+
                   '</li>';
@@ -669,8 +669,7 @@ function updateMember(member) {
 
 function removeMember(idMember) {
 
-
-    var retVal = confirm("This will delete the selected record? Do you want to continue ?");
+    var retVal = app.dialog.confirm("This will delete the selected record? Do you want to continue ?");
     if (retVal == true) {
         db.transaction(function (tx) {
             tx.executeSql('DELETE FROM CUSTOMERS WHERE ID = ?', [idMember]);

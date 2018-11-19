@@ -17,7 +17,7 @@
        under the License.
  */
 
-package org.apache.cordova.myApp;
+package org.apache.cordova.super8retailing;
 
 import android.os.Bundle;
 import org.apache.cordova.*;
