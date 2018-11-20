@@ -608,8 +608,7 @@ app.getProducts = function () {
         $$('.cart').css('left', '-400%')
     } else {
         var items = '';
-        $$('.submitBtn')
-            .show();
+        $$('.submitBtn').show();
         var cartmemberinfo = '';
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
