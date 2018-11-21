@@ -13,7 +13,13 @@
         <div class="title">Category</div>
       </div>
     </div>
-    <div class="page-content">
+   <div class="page-content ptr-content" data-ptr-distance="55">
+    <!-- Default pull to refresh preloader-->
+    <div class="ptr-preloader">
+      <div class="preloader"></div>
+      <div class="ptr-arrow"></div>
+    </div>
+
       <div class="list links-list">
           <ul id="categories">
             {{#each products}}
@@ -29,7 +35,7 @@
 </template>
 
 <script>
-    
+  
 productlist = JSON.parse(localStorage.getItem("products"));
   return {
     data: function () {

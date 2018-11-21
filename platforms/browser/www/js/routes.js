@@ -52,6 +52,10 @@ routes = [
     componentUrl: './pages/productb.html',
   },
   {
+    path: '/ccart/:user/:userId/:posts/:postId/',
+    componentUrl: './pages/customercart.html',
+  },
+  {
     path: '/activepo/:code/',
     componentUrl: './pages/activepo.html',
   },

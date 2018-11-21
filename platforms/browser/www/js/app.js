@@ -62,13 +62,7 @@ $$('a.getsku')
     });
 
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-    /* app.preloader.show();
-     setTimeout(function (selectedCat) {
-         selectedCat = localStorage.getItem("category");
-         app.preloader.hide();
-     }, 2000);*/
-
-    // setTimeout(function () {}, 800);
+    
     console.log("Catalog");
     app.addToMyCart = function (id) {
         if (!localStorage.getItem("idMember")) {
@@ -479,7 +473,17 @@ $$(document)
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
     // console.log('Category');
-
+  // Pull to refresh content
+  var $ptrContent = $$('.ptr-content');
+  // Add 'refresh' listener on it
+  $ptrContent.on('ptr:refresh', function (e) {
+    // Emulate 2s loading
+    setTimeout(function () {
+      app.pullProductData();
+      // When loading done, we need to reset it
+      app.ptr.done(); // or e.detail();
+    }, 2000);
+  });
 
     $$('#categories .category').on('click', function () {
         selectedCat = $$(this).attr("alt");
@@ -536,7 +540,7 @@ app.init = function () {
         .text(currency_icon + ' ' + total + ' USD');
 }
 
-
+   
 
 app.pullProductJSONData = function () {
     console.log("Pulling raw json data...");
@@ -610,6 +614,7 @@ app.getProducts = function () {
         var items = '';
         $$('.submitBtn').show();
         var cartmemberinfo = '';
+       $$('.cname-container').html('');
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
         var timepo = localStorage.getItem("timeandponumber");
@@ -637,7 +642,7 @@ app.getProducts = function () {
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
         $$('.cart')
-            .css('left', '0')
+            .css('left', '0');
     }
 }
 app.updateItem = function (id, available) {
