@@ -556,6 +556,7 @@ app.pullProductJSONData = function () {
 
 
 app.pullProductData = function () {
+    app.pullProductJSONData();
     console.log("Pulling data...");
     app.preloader.show();
     // Perform Ajax request
@@ -577,7 +578,6 @@ var products = "";
 app.createProducts = function (products) {
     console.log("create products");
     app.pullProductData();
-    app.pullProductJSONData();
     products = JSON.parse(localStorage.getItem("products"));
   //  products=productsList;
 }
@@ -885,7 +885,7 @@ $$(document).on('DOMContentLoaded', function () {
     app.updatePayForm();
     //app.getProducts();
     app.pullProductData();
-    app.pullProductJSONData();
+   // app.pullProductJSONData();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
 
