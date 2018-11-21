@@ -52,7 +52,7 @@ routes = [
     componentUrl: './pages/productb.html',
   },
   {
-    path: '/ccart/:user/:userId/:posts/:postId/',
+    path: '/ccart/',
     componentUrl: './pages/customercart.html',
   },
   {

@@ -1,5 +1,5 @@
 <template>
-  <div class="page" data-name="customercart">
+  <div class="page" data-name="">
     <div class="navbar">
       <div class="navbar-inner sliding">
         <div class="left">
@@ -22,7 +22,7 @@
       </div>
       <div class="block-title">Page Component Data</div>
       <div class="block block-strong">
-        <p>Hello! My name is {{name}}. I am {{age}} years old.</p>
+        <p>Hello! My name is {{cname}}. I am {{ponumber}} years old.</p>
         <p>I like to play:</p>
         <ul>
           {{#each like}}
@@ -91,8 +91,8 @@
     data: function () {
       // Must return an object
       return {
-        name: 'Jimmy',
-        age: 25,
+        cname: localStorage.getItem("fnMember"),
+        ponumber: localStorage.getItem("timeandponumber"),
         like: ['Tennis', 'Chess', 'Football'],
       }
     },
