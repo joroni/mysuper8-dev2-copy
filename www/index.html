@@ -104,7 +104,7 @@
             <i class="icon material-icons md-only">playlist_add_check</i>
             <span class="tabbar-label">Orders</span>
           </a>
-          <a href="#" id="btnCart" class="tab-link  popup-open" data-popup="#my-cart-screen">
+          <a href="#" id="btnCart" onclick="app.getProducts();" class="tab-link  popup-open" data-popup="#my-cart-screen">
             <i class="icon f7-icons ios-only">shopping_cart</i>
             <i class="icon f7-icons ios-only icon-ios-fill">shopping_cart_fill</i>
             <i class="icon material-icons md-only">shopping_cart<span id="totalItems" class="badge color-red"></span></i>
@@ -566,7 +566,8 @@
               <div class="block">
                 <table class="table table-hover">
                   <tbody id="cartInfo" class="cartmemberinfo">
-                    
+                      <tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title"></span></td></tr>
+                      <tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title"></span></td></tr>
                   </tbody>
                 </table>
                 <table class="table table-hover">

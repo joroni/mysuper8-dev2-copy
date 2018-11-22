@@ -61,6 +61,8 @@ $$('a.getsku')
         app.dialog.alert(selectedCat);
     });
 
+
+
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
 
     console.log("Catalog");
@@ -473,18 +475,48 @@ $$(document)
 
 
 
-    $$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
-        alert('cart');
-    
-    var cart_i = JSON.parse(localStorage.getItem("cart"));
-    alert('cart', cart_i);
-    app.theseItems = function (x) {
+$$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
+    alert('cart');
 
-        for (i = 0; i < cart_i.length; i++) {
-            x += cart_i[i];
+    /* var cart_i = JSON.parse(localStorage.getItem("cart"));
+     alert('cart', cart_i);
+     app.theseItems = function (x) {
 
-        }
+         for (i = 0; i < cart_i.length; i++) {
+             x += cart_i[i];
+
+         }
+     }*/
+    var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+            items: []
+        };
+       
+    if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
+        wrapper.html('<div>Your cart is empty</div>');
+        $$('.submitBtn').hide();
+        $$('.cart').css('left', '-400%')
+    } else {
+        var activeCustomer = localStorage.getItem("fnMember");
+        var timepo = localStorage.getItem("timeandponumber");
+         _.forEach(cart.items, function (n) {
+           var itembought ='';
+           itembought = n.sku;
+            console.log(activeCustomer);
+            console.log(timepo);
+            console.log(itembought);
+           /* items += '<tr>'
+            items += '<td><span class="qant">' + n.cant + '</span></td>'
+            items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
+            items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
+            items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
+            items += '</tr>';*/
+           
+        });
+      
     }
+})
+$$(document).on('page:init', '.page[data-name="my-cart-screen"]', function (e) {
+app.showOrders();
 })
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
@@ -911,3 +943,55 @@ $$(document).on('DOMContentLoaded', function () {
     localStorage.setItem("myCurrency", currency_icon);
 
 });
+
+
+
+
+
+app.showOrders = function () {
+    console.log("show orders");
+    $$('.submitBtn').hide();
+    var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
+            items: []
+        },
+        wrapper = $$('.cart'),
+        wrapper2 = $$('.cartmemberinfo'),
+        total = 0
+   // wrapper.html('');
+   // wrapper2.html('');
+    if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
+        wrapper.html('<div>Your cart is empty</div>');
+        $$('.submitBtn').hide();
+       // $$('.cart').css('left', '-400%')
+    } else {
+        var items = '';
+        var cartmemberinfo = '';
+        var activeCustomer = localStorage.getItem("fnMember");
+        var timepo = localStorage.getItem("timeandponumber");
+        $$('.submitBtn').show();
+        $$('.cname-container').html(activeCustomer)  
+        cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
+            '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>'
+        _.forEach(cart.items, function (n, key) {
+            var oldpricing = '';
+            if (n.oldprice != 0 || n.oldprice != '') {
+                var oldpricing = currency_icon + '' + n.oldprice.toFixed(2)
+            } else {
+                var oldpricing = '';
+            }
+            total = total + (n.cant * n.price);
+            items += '<tr>'+
+          '<td><span class="qant">' + n.cant + '</span></td>'+
+            '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'+
+           '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'+
+           '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'+
+           '</tr>';
+            $$('#prod_' + n.id).val(n.cant);
+        });
+        items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
+       // wrapper.html(items);
+        //wrapper2.html(cartmemberinfo);
+        localStorage.setItem("grndTotal", total.toFixed(2));
+      //  $$('.cart').css('left', '0')
+    }
+}
