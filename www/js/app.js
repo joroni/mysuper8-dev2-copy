@@ -2,7 +2,7 @@ var $$ = Dom7;
 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
- var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
 //var base_url = "http://localhost/slim";
 var currency_icon = '₱';
 $$(".button").addClass("button-big");
@@ -22,8 +22,8 @@ var app = new Framework7({
             },
             productcs: JSON.parse(orderItems),
             products: JSON.parse(localStorage.getItem("jsonproducts")),
-           // products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
-           
+            // products:[{"id":"1","sku":"A0000001","name":"Denim Shirt2","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"350.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"2","sku":"A0000002","name":"Denim Shirt40","cat":"Out Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"360.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"10","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""},{"id":"3","sku":"A0000003","name":"Denim Shirt","cat":"Sports Wear","state":"New","statecolor":"green","size":"","img":"12.jpg","oldprice":"","price":"299.00","descr":"Libertad 5oz BU 1998 Contains 1 Libertad 5oz BU brilliant uncirculated .999 fine Silver. In capsule The same coin as you see in this picture. We only Ship to the US, and is FREE Shipping Shipping time","stock":"4","cname":"","check":"","select":"","notes":"","email":"","smname":"","timestamp":"","ponumber":"","total":""}]
+
         };
     },
     methods: {
@@ -62,7 +62,7 @@ $$('a.getsku')
     });
 
 $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
-    
+
     console.log("Catalog");
     app.addToMyCart = function (id) {
         if (!localStorage.getItem("idMember")) {
@@ -358,7 +358,7 @@ $$(document)
     });
 $$(document)
     .on('page:init', '.page[data-name="catalog"]', function (e) {
-       
+
         //  app.loadStore();
         app.preloader.show();
         setTimeout(function () {
@@ -376,7 +376,7 @@ $$(document)
                 console.log("continue shopping");
                 //  console.log("add to cart");
                 var l = $$('#prod_' + id);
-               var products = JSON.parse(localStorage.getItem('products')),
+                var products = JSON.parse(localStorage.getItem('products')),
                     producto = _.find(products, {
                         'id': id
                     }),
@@ -471,19 +471,35 @@ $$(document)
         }
     });
 
+
+
+    $$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
+        alert('cart');
+    
+    var cart_i = localStorage.getItem("cart");
+    alert('cart', cart_i);
+    app.theseItems = function (x) {
+
+        for (i = 0; i < cart_i.length; i++) {
+            x += cart_i[i];
+
+        }
+    }
+})
+
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
     // console.log('Category');
-  // Pull to refresh content
-  var $ptrContent = $$('.ptr-content');
-  // Add 'refresh' listener on it
-  $ptrContent.on('ptr:refresh', function (e) {
-    // Emulate 2s loading
-    setTimeout(function () {
-      app.pullProductData();
-      // When loading done, we need to reset it
-      app.ptr.done(); // or e.detail();
-    }, 2000);
-  });
+    // Pull to refresh content
+    var $ptrContent = $$('.ptr-content');
+    // Add 'refresh' listener on it
+    $ptrContent.on('ptr:refresh', function (e) {
+        // Emulate 2s loading
+        setTimeout(function () {
+            app.pullProductData();
+            // When loading done, we need to reset it
+            app.ptr.done(); // or e.detail();
+        }, 2000);
+    });
 
     $$('#categories .category').on('click', function () {
         selectedCat = $$(this).attr("alt");
@@ -540,14 +556,14 @@ app.init = function () {
         .text(currency_icon + ' ' + total + ' USD');
 }
 
-   
+
 
 app.pullProductJSONData = function () {
     console.log("Pulling raw json data...");
     app.preloader.show();
     // Perform Ajax request
     //app.request.get(base_url + '/public/api/jsonproducts', function (data) {
-        app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function(data){
+    app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("jsonproducts", data);
 
@@ -564,12 +580,12 @@ app.pullProductData = function () {
     console.log("Pulling data...");
     app.preloader.show();
     // Perform Ajax request
- //   app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
-      
+    //   app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
+
     app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("products", data);
-        
+
 
         app.preloader.hide();
         console.log(data);
@@ -583,7 +599,7 @@ app.createProducts = function (products) {
     console.log("create products");
     app.pullProductData();
     products = JSON.parse(localStorage.getItem("products"));
-  //  products=productsList;
+    //  products=productsList;
 }
 
 
@@ -614,7 +630,7 @@ app.getProducts = function () {
         var items = '';
         $$('.submitBtn').show();
         var cartmemberinfo = '';
-       $$('.cname-container').html('');
+        $$('.cname-container').html('')
         var activeCustomer = localStorage.getItem("fnMember");
         console.log(activeCustomer);
         var timepo = localStorage.getItem("timeandponumber");
@@ -642,7 +658,7 @@ app.getProducts = function () {
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
         $$('.cart')
-            .css('left', '0');
+            .css('left', '0')
     }
 }
 app.updateItem = function (id, available) {
@@ -882,7 +898,7 @@ app.productsPage = function () {
             '<button type="button" class="btn btn-success btn-number waves-effect h-40 submit ladda-button waves-light prod-' + id + '" data-type="plus" data-style="slide-right" onclick="app.addtoCart(' + id + ');"><i class="material-icons">add</i></button>' +
             '<a class="btn btn-info waves-effect waves-light h-40 pl-4 pr-4" href="#" role="button" data-toggle="modal" data-target="#modalCart">View Cart</a></div></div>');
     }
-    
+
 }
 $$(document).on('DOMContentLoaded', function () {
     app.init();
@@ -890,7 +906,7 @@ $$(document).on('DOMContentLoaded', function () {
     app.updatePayForm();
     //app.getProducts();
     app.pullProductData();
-   // app.pullProductJSONData();
+    // app.pullProductJSONData();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
 
