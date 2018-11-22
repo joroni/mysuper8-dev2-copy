@@ -476,7 +476,7 @@ $$(document)
     $$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
         alert('cart');
     
-    var cart_i = localStorage.getItem("cart");
+    var cart_i = JSON.parse(localStorage.getItem("cart"));
     alert('cart', cart_i);
     app.theseItems = function (x) {
 
