@@ -2,8 +2,8 @@ var $$ = Dom7;
 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
-//var base_url = "http://localhost/slim";
+//var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+var base_url = "http://localhost/slim";
 var currency_icon = '₱';
 $$(".button").addClass("button-big");
 /*
@@ -594,8 +594,8 @@ app.pullProductJSONData = function () {
     console.log("Pulling raw json data...");
     app.preloader.show();
     // Perform Ajax request
-    //app.request.get(base_url + '/public/api/jsonproducts', function (data) {
-    app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function (data) {
+   app.request.get(base_url + '/public/api/jsonproducts', function (data) {
+    //app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("jsonproducts", data);
 
@@ -613,8 +613,8 @@ app.pullProductData = function () {
     app.preloader.show();
     // Perform Ajax request
     //   app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
-
-    app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
+        app.request.get(base_url + '/public/api/products', function (data) {
+   // app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("products", data);
 
@@ -747,7 +747,7 @@ app.updatePayForm = function () {
     var activeCustomer = localStorage.getItem("fnMember");
 
     var timepo = localStorage.getItem("timeandponumber");
-    var statics = '<form  method="post"><input type="hidden" name="customer" value="' + activeCustomer + '"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="' + timepo + '"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
+    var statics = '<form id="orderForm"  method="post"><input type="hidden" name="customer" value="' + activeCustomer + '"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="' + timepo + '"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
         dinamic = '',
         wrapper = $$('.submitForm')
     wrapper.html('')
@@ -941,6 +941,23 @@ $$(document).on('DOMContentLoaded', function () {
     // app.pullProductJSONData();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
+    
+//var hasCustomer = (JSON.parse(localStorage.getItem('fnMember')) != null) ? JSON.parse(localStorage.getItem('fnMember')) : {
+$$(function(){
+    if (localStorage.getItem('fnMember') != null || localStorage.getItem('fnMember') != '')  {
+    var  wrapper = $$('.cart'),
+        wrapper2 = $$('.cartmemberinfo');
+        
+    var activeCustomer = localStorage.getItem("fnMember");
+        var timepo = localStorage.getItem("timeandponumber");
+    $$('.badge').show();
+   // $$('.cname-container').html(activeCustomer);  
+    cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
+        '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>';
+        wrapper2.html(cartmemberinfo);
+}
+
+})
 
 });
 
@@ -969,7 +986,7 @@ app.showOrders = function () {
         var activeCustomer = localStorage.getItem("fnMember");
         var timepo = localStorage.getItem("timeandponumber");
         $$('.submitBtn').show();
-        $$('.cname-container').html(activeCustomer)  
+        $$('.cname-container').html(activeCustomer);  
         cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
             '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
