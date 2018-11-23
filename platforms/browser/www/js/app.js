@@ -163,7 +163,7 @@ $$(document).on('page:init', '.page[data-name="catalog"]', function (e) {
         localStorage.setItem('cart', JSON.stringify(cart));
         app.init();
         app.getProducts();
-        app.updatePayForm();
+        //  app.updatePayForm();
     }
 });
 $$(document)
@@ -488,9 +488,9 @@ $$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
          }
      }*/
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        };
-       
+        items: []
+    };
+
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
         $$('.submitBtn').hide();
@@ -498,25 +498,25 @@ $$(document).on('page:init', '.page[data-name="customercart"]', function (e) {
     } else {
         var activeCustomer = localStorage.getItem("fnMember");
         var timepo = localStorage.getItem("timeandponumber");
-         _.forEach(cart.items, function (n) {
-           var itembought ='';
-           itembought = n.sku;
+        _.forEach(cart.items, function (n) {
+            var itembought = '';
+            itembought = n.sku;
             console.log(activeCustomer);
             console.log(timepo);
             console.log(itembought);
-           /* items += '<tr>'
-            items += '<td><span class="qant">' + n.cant + '</span></td>'
-            items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
-            items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
-            items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
-            items += '</tr>';*/
-           
+            /* items += '<tr>'
+             items += '<td><span class="qant">' + n.cant + '</span></td>'
+             items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
+             items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
+             items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
+             items += '</tr>';*/
+
         });
-      
+
     }
 })
 $$(document).on('page:init', '.page[data-name="my-cart-screen"]', function (e) {
-app.showOrders();
+    app.showOrders();
 })
 
 $$(document).on('page:init', '.page[data-name="category"]', function (e) {
@@ -594,8 +594,8 @@ app.pullProductJSONData = function () {
     console.log("Pulling raw json data...");
     app.preloader.show();
     // Perform Ajax request
-   app.request.get(base_url + '/public/api/jsonproducts', function (data) {
-    //app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function (data) {
+    app.request.get(base_url + '/public/api/jsonproducts', function (data) {
+        //app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/jsonproducts', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("jsonproducts", data);
 
@@ -613,8 +613,8 @@ app.pullProductData = function () {
     app.preloader.show();
     // Perform Ajax request
     //   app.request.get('https://raw.githubusercontent.com/joroni/mysuper8-dev2-copy/master/www/js/data/products.json', function(data){
-        app.request.get(base_url + '/public/api/products', function (data) {
-   // app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
+    app.request.get(base_url + '/public/api/products', function (data) {
+        // app.request.get('http://104.238.96.209/~project/joroni/super8/slim/public/api/products', function (data) {
         // Hide preloader when Ajax request completed
         localStorage.setItem("products", data);
 
@@ -646,8 +646,8 @@ app.getProducts = function () {
     $$('.submitBtn')
         .hide();
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        },
+        items: []
+    },
         msg = '',
         wrapper = $$('.cart'),
         wrapper2 = $$('.cartmemberinfo'),
@@ -695,8 +695,8 @@ app.getProducts = function () {
 }
 app.updateItem = function (id, available) {
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        },
+        items: []
+    },
         curProd = _.find(cart.items, {
             'id': id
         })
@@ -705,7 +705,7 @@ app.updateItem = function (id, available) {
         localStorage.setItem('cart', JSON.stringify(cart))
         app.init()
         app.getProducts()
-        app.updatePayForm()
+        // app.updatePayForm()
     } else {
         app.deleteProd(id, true)
     }
@@ -723,7 +723,7 @@ app.delete = function (id) {
     localStorage.setItem('cart', JSON.stringify(cart));
     app.init();
     app.getProducts();
-    app.updatePayForm();
+    //app.updatePayForm();
 }
 app.deleteProd = function (id, remove) {
     if (undefined != id && id > 0) {
@@ -737,6 +737,76 @@ app.deleteProd = function (id, remove) {
         }
     }
 }
+
+
+
+sendOrdersData = function (event) {
+    var sku = $("#sku").val(),
+        name = $("#name").val(),
+        state = $("#state").val(),
+        cat = $("#cat").val(),
+        statecolor = $("#statecolor").val(),
+        size = $("#size").val(),
+        img = $("#img").val(),
+        oldprice = $("#oldprice").val(),
+        price = $("#price").val(),
+        descr = $("#descr").val(),
+        stock = $("#stock").val();
+
+    loader.show();
+    // Add order
+    $.post(base_url + '/slim/public/api/orders/add', {
+        sku: sku,
+        name: name,
+        state: state,
+        cat: cat,
+        statecolor: statecolor,
+        size: size,
+        img: img,
+        oldprice: oldprice,
+        price: price,
+        stock: stock,
+        descr: descr
+    }, function (data, status) {
+        loader.hide();
+        // close the popup
+        $("#productModal").modal("hide");
+
+        // read records again
+        readProductData();
+
+        // clear fields from the popup
+        $('input').val("");
+    })
+
+
+}
+
+app.sendOrder = function() {
+    $.post(base_url + '/slim/public/api/orders/add', {
+           
+        cname: $$('#txtName').val(),
+        ponumber: $$('#txtCode').val(),
+        notes: $$('#txtNotes').val(),
+        dateordered: $$('#txtDate').val(),
+        items: $$('#itemRecap').html()  
+      
+        
+
+
+    }, function (data, status) {
+        // loader.hide();
+        // close the popup
+        // $("#productModal").modal("hide");
+
+        // read records again
+        // readProductData();
+
+        // clear fields from the popup
+        //$('input').val("");
+        alert("Success");
+    })
+}
 app.updatePayForm = function () {
 
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -746,14 +816,21 @@ app.updatePayForm = function () {
     var grandtotal = localStorage.getItem("grndTotal");
     var activeCustomer = localStorage.getItem("fnMember");
 
+
+    
+
+
     var timepo = localStorage.getItem("timeandponumber");
-    var statics = '<form id="orderForm"  method="post"><input type="hidden" name="customer" value="' + activeCustomer + '"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="' + timepo + '"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
+    var statics = '<form id="orderForm" method="post"><input type="hidden" name="customer" value="' + activeCustomer + '"><input type="hidden" name="upload" value="1"><input type="hidden" name="currency_code" value="PHP" /><input type="hidden" name="pocode" value="' + timepo + '"><input type="hidden" name="grandtotal" class="grandtotal" value="' + grandtotal + '">',
         dinamic = '',
         wrapper = $$('.submitForm')
     wrapper.html('')
     if (undefined != cart && null != cart && cart != '') {
         var i = 1;
         _.forEach(cart.items, function (prod, key) {
+
+            dinamic += '<input type="hidden" name="ponumber_' + i + '" value="' + timepo + '">'
+            dinamic += '<input type="hidden" name="customer_' + i + '" value="' + activeCustomer + '">'
             dinamic += '<input type="hidden" name="item_name_' + i + '" value="' + prod.name + '">'
             dinamic += '<input type="hidden" name="amount_' + i + '" value="' + prod.price + '">'
             dinamic += '<input type="hidden" name="item_sku_' + i + '" value="' + prod.sku + '">'
@@ -764,7 +841,21 @@ app.updatePayForm = function () {
 
         })
         statics += dinamic + '</form>'
-        wrapper.html(statics)
+        wrapper.html(statics);
+        var sku = $('input[name="item_sku_' + i + '"]').val(),
+            name = $('input[name="item_name_' + i + '"]').val(),
+            state = $('input[name="item_state_' + i + '"]').val(),
+            statecolor = $('input[name="item_statecolor_' + i + '"]').val(),
+            cname = $('input[name="customer_' + i + '"]').val(),
+            cant = $('input[name="quantity_' + i + '"]').val(),
+            oldprice = $('input[name="item_oldprice_' + i + '"]').val(),
+            price = $('input[name="amount_' + i + '"]').val(),
+            ponumber = $('input[name="ponumber_' + i + '"]').val(),
+            descr = $('input[name="item_decr_' + i + '"]').val(),
+            total = $('input[name="total_' + i + '"]').val();
+
+
+      
     }
 }
 
@@ -872,7 +963,7 @@ btns.on("click", function () {
         .addClass("tab-link-active");
 })
 for (var i = 0; i < btns.length; i++) {
-    btns.on("click", function () {});
+    btns.on("click", function () { });
 }
 app.productsPage = function () {
     var activeSKU = sessionStorage.getItem("skuItem");
@@ -941,23 +1032,26 @@ $$(document).on('DOMContentLoaded', function () {
     // app.pullProductJSONData();
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
-    
-//var hasCustomer = (JSON.parse(localStorage.getItem('fnMember')) != null) ? JSON.parse(localStorage.getItem('fnMember')) : {
-$$(function(){
-    if (localStorage.getItem('fnMember') != null || localStorage.getItem('fnMember') != '')  {
-    var  wrapper = $$('.cart'),
-        wrapper2 = $$('.cartmemberinfo');
-        
-    var activeCustomer = localStorage.getItem("fnMember");
-        var timepo = localStorage.getItem("timeandponumber");
-    $$('.badge').show();
-   // $$('.cname-container').html(activeCustomer);  
-    cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
-        '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>';
-        wrapper2.html(cartmemberinfo);
-}
+    $$('#frmCadastro .btn-submit-po').on('click', function () {
+        app.updateOrderForm();
+    })
 
-})
+    //var hasCustomer = (JSON.parse(localStorage.getItem('fnMember')) != null) ? JSON.parse(localStorage.getItem('fnMember')) : {
+    $$(function () {
+        if (localStorage.getItem('fnMember') != null || localStorage.getItem('fnMember') != '') {
+            var wrapper = $$('.cart'),
+                wrapper2 = $$('.cartmemberinfo');
+
+            var activeCustomer = localStorage.getItem("fnMember");
+            var timepo = localStorage.getItem("timeandponumber");
+            $$('.badge').show();
+            // $$('.cname-container').html(activeCustomer);  
+            cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
+                '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>';
+            wrapper2.html(cartmemberinfo);
+        }
+
+    })
 
 });
 
@@ -969,24 +1063,24 @@ app.showOrders = function () {
     console.log("show orders");
     $$('.submitBtn').hide();
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
-            items: []
-        },
+        items: []
+    },
         wrapper = $$('.cart'),
         wrapper2 = $$('.cartmemberinfo'),
         total = 0
-   // wrapper.html('');
-   // wrapper2.html('');
+    // wrapper.html('');
+    // wrapper2.html('');
     if (undefined == cart || null == cart || cart == '' || cart.items.length == 0) {
         wrapper.html('<div>Your cart is empty</div>');
         $$('.submitBtn').hide();
-       // $$('.cart').css('left', '-400%')
+        // $$('.cart').css('left', '-400%')
     } else {
         var items = '';
         var cartmemberinfo = '';
         var activeCustomer = localStorage.getItem("fnMember");
         var timepo = localStorage.getItem("timeandponumber");
         $$('.submitBtn').show();
-        $$('.cname-container').html(activeCustomer);  
+        $$('.cname-container').html(activeCustomer);
         cartmemberinfo = '<tr><td class="left" colspan="2">Now Serving:</td><td colspan="3" class="right"><span class="title">' + activeCustomer + '</span></td></tr>' +
             '<tr><td class="left" colspan="2">PO #:</td><td colspan="3" class="right"><span class="title">' + timepo + '</span></td></tr>'
         _.forEach(cart.items, function (n, key) {
@@ -997,18 +1091,18 @@ app.showOrders = function () {
                 var oldpricing = '';
             }
             total = total + (n.cant * n.price);
-            items += '<tr>'+
-          '<td><span class="qant">' + n.cant + '</span></td>'+
-            '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'+
-           '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'+
-           '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'+
-           '</tr>';
+            items += '<tr>' +
+                '<td><span class="qant">' + n.cant + '</span></td>' +
+                '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>' +
+                '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>' +
+                '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>' +
+                '</tr>';
             $$('#prod_' + n.id).val(n.cant);
         });
         items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
-       // wrapper.html(items);
+        // wrapper.html(items);
         //wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
-      //  $$('.cart').css('left', '0')
+        //  $$('.cart').css('left', '0')
     }
 }
