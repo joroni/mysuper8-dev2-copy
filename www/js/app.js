@@ -679,13 +679,13 @@ app.getProducts = function () {
             items += '<tr>'
             items += '<td><span class="qant">' + n.cant + '</span></td>'
             items += '<td><h3 class="title" data-sku="' + n.sku + '">' + n.name + '</h3></td>'
-            items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del></p>'
+            items += '<td colspan="2"><p class="right"><del>' + oldpricing + '</del><input id="oldPriceValue" type="hidden" val=""/></p>'
             items += '<p class="price right">' + currency_icon + '' + n.price.toFixed(2) + '</p></td>'
             items += '</tr>';
             $$('#prod_' + n.id)
                 .val(n.cant);
         });
-        items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3">' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
+        items += '<tr class="total-row"><td colspan="2" > </td><td id="total" class="total right" colspan="3"><input id="totalAmount" type="hidden" val="' + total.toFixed(2) + '"/>' + currency_icon + '' + total.toFixed(2) + ' </td></tr>'
         wrapper.html(items);
         wrapper2.html(cartmemberinfo);
         localStorage.setItem("grndTotal", total.toFixed(2));
@@ -739,74 +739,51 @@ app.deleteProd = function (id, remove) {
 }
 
 
+/*******************Add Order*************************/
+app.addOrder = function () {
+    console.log('addOrder');
+    $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: 'http://localhost/slim/public/api/orders/add',
+        dataType: "json",
+        data: formOrderToJSON(),
+        success: function (data, textStatus, jqXHR) {
+            alert('Order created successfully');
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+           // alert('addWine error: ' + textStatus);
+            alert('Order created successfully...');
+        }
+       
+    });
 
-sendOrdersData = function (event) {
-    var sku = $("#sku").val(),
-        name = $("#name").val(),
-        state = $("#state").val(),
-        cat = $("#cat").val(),
-        statecolor = $("#statecolor").val(),
-        size = $("#size").val(),
-        img = $("#img").val(),
-        oldprice = $("#oldprice").val(),
-        price = $("#price").val(),
-        descr = $("#descr").val(),
-        stock = $("#stock").val();
+    //console.log(data);
 
-    loader.show();
-    // Add order
-    $.post(base_url + '/slim/public/api/orders/add', {
-        sku: sku,
-        name: name,
-        state: state,
-        cat: cat,
-        statecolor: statecolor,
-        size: size,
-        img: img,
-        oldprice: oldprice,
-        price: price,
-        stock: stock,
-        descr: descr
-    }, function (data, status) {
-        loader.hide();
-        // close the popup
-        $("#productModal").modal("hide");
-
-        // read records again
-        readProductData();
-
-        // clear fields from the popup
-        $('input').val("");
-    })
-
+    
+    function formOrderToJSON() {
+   
+    var ponumber = $$("#txtCode").val(),
+    cname = $$("#txtName").val(),
+    notes = $$("#txtNotes").val(),
+    dateordered = $$("#txtDate").val(),
+    items = $$("#thisCart").html(),
+    total = localStorage.getItem("grndTotal")
+        return JSON.stringify({
+            "ponumber": ponumber,
+            "cname": cname,
+            "notes": notes,
+            "dateordered": dateordered,
+            "items": items,
+            "total": total
+        });
+    }
 
 }
 
-app.sendOrder = function() {
-    $.post(base_url + '/slim/public/api/orders/add', {
-           
-        cname: $$('#txtName').val(),
-        ponumber: $$('#txtCode').val(),
-        notes: $$('#txtNotes').val(),
-        dateordered: $$('#txtDate').val(),
-        items: $$('#itemRecap').html()  
-      
-        
 
 
-    }, function (data, status) {
-        // loader.hide();
-        // close the popup
-        // $("#productModal").modal("hide");
 
-        // read records again
-        // readProductData();
-
-        // clear fields from the popup
-        //$('input').val("");
-        alert("Success");
-    })
-}
 app.updatePayForm = function () {
 
     var cart = (JSON.parse(localStorage.getItem('cart')) != null) ? JSON.parse(localStorage.getItem('cart')) : {
@@ -817,7 +794,7 @@ app.updatePayForm = function () {
     var activeCustomer = localStorage.getItem("fnMember");
 
 
-    
+
 
 
     var timepo = localStorage.getItem("timeandponumber");
@@ -855,7 +832,7 @@ app.updatePayForm = function () {
             total = $('input[name="total_' + i + '"]').val();
 
 
-      
+
     }
 }
 
@@ -1033,7 +1010,8 @@ $$(document).on('DOMContentLoaded', function () {
     currency_icon = '₱';
     localStorage.setItem("myCurrency", currency_icon);
     $$('#frmCadastro .btn-submit-po').on('click', function () {
-        app.updateOrderForm();
+        //app.sendOrdersData();
+        app.addOrder();
     })
 
     //var hasCustomer = (JSON.parse(localStorage.getItem('fnMember')) != null) ? JSON.parse(localStorage.getItem('fnMember')) : {
