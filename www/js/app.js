@@ -2,8 +2,8 @@ var $$ = Dom7;
 
 var orderItems = localStorage.getItem("txtClients");
 var customers = localStorage.getItem("customers");
-//var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
-var base_url = "http://localhost/slim";
+var base_url = "http://104.238.96.209/~project/joroni/super8/slim";
+//var base_url = "http://localhost/slim";
 var currency_icon = '₱';
 $$(".button").addClass("button-big");
 /*
@@ -745,7 +745,8 @@ app.addOrder = function () {
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
-        url: 'http://localhost/slim/public/api/orders/add',
+        //url: 'http://localhost/slim/public/api/orders/add',
+        url: 'http://104.238.96.209/~project/joroni/super8/slim/public/api/orders/add',
         dataType: "json",
         data: formOrderToJSON(),
         success: function (data, textStatus, jqXHR) {
