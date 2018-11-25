@@ -750,11 +750,13 @@ app.addOrder = function () {
         dataType: "json",
         data: formOrderToJSON(),
         success: function (data, textStatus, jqXHR) {
-            alert('Order created successfully');
+            app.dialog.alert('Order created successfully');
+            location.reload();
         },
         error: function (jqXHR, textStatus, errorThrown) {
            // alert('addWine error: ' + textStatus);
-            alert('Order created successfully...');
+           app.dialog.alert('Order created successfully...');
+            location.reload();
         }
        
     });
@@ -925,7 +927,7 @@ app.resetPOCart = function () {
     console.log("Cache is now cleared.");
 
     app.router.navigate('/catalogc/');
-    location.reload();
+    //location.reload();
 
 }
 app.getSKU = function (ThisSKU) {
