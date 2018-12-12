@@ -19,6 +19,8 @@ var app = new Framework7({
             user: {
                 firstName: 'John',
                 lastName: 'Doe',
+                userName:'admin',
+                passWord:'admin'
             },
             productcs: JSON.parse(orderItems),
             products: JSON.parse(localStorage.getItem("jsonproducts")),
@@ -53,7 +55,15 @@ $$('#my-login-screen .login-button')
         var password = $$('#my-login-screen [name="password"]')
             .val();
         app.loginScreen.close('#my-login-screen');
-        app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
+        var theuser = 'admin';
+        var thepassword = 'admin';
+        if (theuser == username && thepassword== password){
+            app.dialog.alert('Hi ' + username);
+        }else{
+            app.dialog.alert('Invalid credentials');
+            return false;
+        }
+       // app.dialog.alert('Username: ' + username + '<br>Password: ' + password);
     });
 $$('a.getsku')
     .on('click', function () {
